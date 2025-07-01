@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RetentionsTableViewDlg" widgetVar="RetentionsTableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRetentionsTableTitle}">
+            <h:form id="RetentionsTableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{retentionsTableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_id}"/>
+                        <h:outputText value="#{retentionsTableController.selected.id}" title="#{bundle.ViewRetentionsTableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_contractId}"/>
+                        <h:outputText value="#{retentionsTableController.selected.contractId}" title="#{bundle.ViewRetentionsTableTitle_contractId}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_retentionReason}"/>
+                        <h:outputText value="#{retentionsTableController.selected.retentionReason}" title="#{bundle.ViewRetentionsTableTitle_retentionReason}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_retainedPercentageApplied}"/>
+                        <h:outputText value="#{retentionsTableController.selected.retainedPercentageApplied}" title="#{bundle.ViewRetentionsTableTitle_retainedPercentageApplied}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_initialRetainedAmount}"/>
+                        <h:outputText value="#{retentionsTableController.selected.initialRetainedAmount}" title="#{bundle.ViewRetentionsTableTitle_initialRetainedAmount}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_currency}"/>
+                        <h:outputText value="#{retentionsTableController.selected.currency}" title="#{bundle.ViewRetentionsTableTitle_currency}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_amountReleasedSoFar}"/>
+                        <h:outputText value="#{retentionsTableController.selected.amountReleasedSoFar}" title="#{bundle.ViewRetentionsTableTitle_amountReleasedSoFar}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_status}"/>
+                        <h:outputText value="#{retentionsTableController.selected.status}" title="#{bundle.ViewRetentionsTableTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_releaseConditionDescription}"/>
+                        <h:outputText value="#{retentionsTableController.selected.releaseConditionDescription}" title="#{bundle.ViewRetentionsTableTitle_releaseConditionDescription}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_scheduledReleaseDate}"/>
+                        <h:outputText value="#{retentionsTableController.selected.scheduledReleaseDate}" title="#{bundle.ViewRetentionsTableTitle_scheduledReleaseDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_actualFirstReleaseDate}"/>
+                        <h:outputText value="#{retentionsTableController.selected.actualFirstReleaseDate}" title="#{bundle.ViewRetentionsTableTitle_actualFirstReleaseDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_notes}"/>
+                        <h:outputText value="#{retentionsTableController.selected.notes}" title="#{bundle.ViewRetentionsTableTitle_notes}"/>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_createdAt}"/>
+                        <h:outputText value="#{retentionsTableController.selected.createdAt}" title="#{bundle.ViewRetentionsTableTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRetentionsTableLabel_updatedAt}"/>
+                        <h:outputText value="#{retentionsTableController.selected.updatedAt}" title="#{bundle.ViewRetentionsTableTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="RetentionsTableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

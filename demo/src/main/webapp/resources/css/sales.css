@@ -1,0 +1,226 @@
+/* Default styling for the tabView */
+.custom-tabview .ui-tabs-nav {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+
+.custom-tabview .ui-tabs-nav li {
+    flex: 1;
+    text-align: center;
+}
+
+/* Tab content */
+.custom-tabview .ui-tabs-panel {
+    padding: 15px;
+}
+
+/* Make the tabs stack or adjust for mobile */
+@media screen and (max-width: 768px) {
+    .custom-tabview .ui-tabs-nav {
+        flex-direction: column; /* Stack the tabs vertically */
+        align-items: flex-start; /* Align tabs to the start */
+    }
+
+    .custom-tabview .ui-tabs-nav li {
+        width: 100%; /* Make tabs full width on mobile */
+        text-align: left; /* Align text to the left */
+    }
+
+    .custom-tabview .ui-tabs-panel {
+        padding: 10px; /* Adjust padding for mobile */
+        font-size: 14px; /* Adjust font size for readability */
+    }
+}
+/* Default style for the splitter */
+.custom-splitter {
+    height: 300px; /* Default height for larger screens */
+    display: flex;
+}
+
+/* Adjust splitter on mobile screens */
+@media screen and (max-width: 768px) {
+    .custom-splitter {
+        flex-direction: column; /* Stack the panels vertically */
+        height: auto; /* Let height adjust based on content */
+    }
+
+    .custom-splitter .ui-splitter-panel {
+        width: 100%; /* Full width for each panel */
+        height: auto; /* Allow panel height to adjust automatically */
+    }
+}
+@media screen and (max-width: 768px) {
+    .responsive-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .responsive-panel .ui-grid-column {
+        width: 100% !important;
+    }
+
+    .responsive-panel .ui-selectonemenu,
+    .responsive-panel .ui-inputtext {
+        width: 100% !important; /* Ensure form fields expand fully */
+    }
+}
+@media screen and (max-width: 768px) {
+    /* Ensure footer buttons are always visible */
+    .datatable-footer {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        padding: 10px;
+        z-index: 10;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Make buttons full width on mobile */
+    .btn-footer {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+}
+.custom-submenu .ui-menu-child {
+    width: 250px !important; /* Adjust the width as needed */
+}
+.ui-datatable-even {
+    background-color: #f9f9f9 !important;
+}
+
+.ui-datatable-odd {
+    background-color: #ffffff !important;
+}
+
+.better-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+    text-align: left;
+    padding: 8px;
+    border-bottom: 2px solid #ddd;
+}
+
+.better-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.bold-icon {
+    font-size: 1.5em;
+}
+
+.no-border {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.bold-icon .ui-icon {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+/* Style for disabled button (optional) */
+.ui-button.ui-state-disabled {
+    opacity: 0.5; /* Makes it appear grayed out */
+    cursor: not-allowed; /* Changes cursor to indicate non-clickable */
+}
+
+/* Default (Desktop) Styles */
+.filter-grid {
+    width: 100%;
+}
+
+.date-grid {
+    width: 100%;
+}
+
+/* Hide elements on mobile */
+.desktop-only {
+    display: block;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .filter-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .date-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .compact-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .filter-buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .small-input,
+    .small-calendar,
+    .compact-radio {
+        width: 100% !important;
+    }
+
+    .desktop-only {
+        display: none; /* Hide spacers and extra elements */
+    }
+
+    .small-button {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+/* Default style for the splitter */
+.custom-splitter {
+    height: 300px; /* Default height for larger screens */
+    display: flex;
+}
+
+/* Adjust splitter on mobile screens */
+@media screen and (max-width: 768px) {
+    .custom-splitter {
+        flex-direction: column; /* Stack the panels vertically */
+        height: auto; /* Let height adjust based on content */
+    }
+
+    .custom-splitter .ui-splitter-panel {
+        width: 100%; /* Full width for each panel */
+        height: auto; /* Allow panel height to adjust automatically */
+    }
+    .ui-selection-column {
+        display: table-cell !important;
+    }
+
+}
+.custom-submenu .ui-menu-child {
+    width: 250px !important; /* Adjust the width as needed */
+}
+
+.no-border {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.bold-icon .ui-icon {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+/* Style for disabled button (optional) */
+.ui-button.ui-state-disabled {
+    opacity: 0.5; /* Makes it appear grayed out */
+    cursor: not-allowed; /* Changes cursor to indicate non-clickable */
+}

@@ -1,0 +1,242 @@
+/* General Dashboard Styling */
+body .dashboard-form {
+    margin: 0;
+    padding: 20px; /* Add padding around the whole form */
+    font-family: var(--font-family); /* Use PrimeFaces theme font */
+    background-color: #f8f9fa; /* Light background for the page */
+    zoom: 90%; /* Adjusted zoom slightly */
+}
+
+body .dashboard-panel .ui-panel-content {
+    padding: 0 !important; /* Remove default panel padding if needed */
+    border: none !important;
+}
+
+/* Info Cards */
+.info-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: none; /* Remove default card border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Ensure icon background doesn't spill */
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.info-card .ui-card-body {
+    padding: 1.5rem; /* Adjust padding within the card */
+}
+.info-card .ui-card-content {
+    padding: 0; /* Remove default content padding if body padding is used */
+}
+
+.info-card-count {
+    font-size: 2rem; /* Larger count */
+    font-weight: 700; /* Bolder count */
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.info-card-title {
+    font-size: 0.9rem;
+    color: var(--text-color-secondary);
+    font-weight: 500;
+}
+
+.info-card-icon {
+    font-size: 1.8rem; /* Slightly larger icon */
+    padding: 0.8rem;
+    border-radius: 50%;
+    color: #fff; /* White icon color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Fixed size */
+    height: 50px;
+}
+
+/* Specific Info Card Icon Backgrounds */
+.info-card-tasks .info-card-icon { background-color: var(--blue-500); }
+.info-card-assigned .info-card-icon { background-color: var(--green-500); }
+.info-card-overdue .info-card-icon { background-color: var(--red-500); }
+.info-card-due-week .info-card-icon { background-color: var(--orange-500); }
+
+/* Section Cards (Middle/Bottom Sections) */
+.section-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--surface-d); /* Softer border */
+    height: 300px; /* Consistent height for sections */
+    display: flex;
+    flex-direction: column;
+}
+
+.section-card .ui-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--surface-d);
+    padding-bottom: 0.8rem;
+    margin-bottom: 0; /* Remove default margin */
+    display: flex;
+    align-items: center;
+}
+.section-card .ui-card-body {
+    padding: 0; /* Remove body padding to control content padding directly */
+    flex-grow: 1; /* Allow body to fill height */
+    overflow: hidden; /* Needed for scrolling */
+    display: flex; /* Ensure children can flex */
+    flex-direction: column; /* Stack title and content */
+}
+.section-card .ui-card-content {
+    padding: 1rem 1.25rem; /* Add padding back to content area */
+    overflow-y: auto; /* Enable vertical scroll */
+    flex-grow: 1; /* Allow content to take remaining space */
+}
+
+/* Scrollable Container Specifics */
+.scrollable-container {
+    max-height: 300px; /* Or adjust as needed */
+}
+
+/* Sticky Title within Scrollable Card */
+.sticky-title {
+    position: sticky;
+    top: 0;
+    background-color: var(--surface-a); /* Match card header background */
+    z-index: 10;
+    padding: 1.25rem; /* Match card title padding */
+    margin: -1.25rem; /* Counteract parent padding */
+    border-bottom: 1px solid var(--surface-d); /* Separator line */
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+/* Lists within Sections (Unassigned Tasks, Activity) */
+.entity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.entity-item, .activity-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 0; /* Vertical padding, adjust horizontal in parent */
+    border-bottom: 1px solid var(--surface-c); /* Lighter separator */
+    gap: 1rem; /* Space between elements */
+}
+
+.entity-item:last-child, .activity-item:last-child {
+    border-bottom: none;
+}
+
+.entity-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.entity-name {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.15rem;
+}
+
+.entity-detail {
+    font-size: 0.85rem;
+    color: var(--text-color-secondary);
+}
+
+/* Activity List Specifics */
+.activity-item {
+    justify-content: flex-start; /* Align items to start */
+}
+
+.activity-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-info {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-bottom: 0.2rem;
+}
+.activity-info .font-semibold {
+    color: var(--primary-color); /* Highlight task names */
+}
+
+.activity-time {
+    font-size: 0.8rem;
+    color: var(--text-color-secondary);
+}
+
+
+/* DataTable Card */
+.datatable-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--surface-d);
+}
+.datatable-card .ui-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+/* DataTable Styling */
+.task-datatable .ui-datatable-header,
+.task-datatable .ui-datatable-thead > tr > th,
+.task-datatable .ui-datatable-tfoot > tr > td,
+.task-datatable .ui-paginator {
+    background-color: var(--surface-b); /* Slightly different background for header/footer */
+    border-color: var(--surface-d);
+}
+
+.task-datatable .ui-datatable-thead > tr > th {
+    font-weight: 600;
+    color: var(--text-color-secondary);
+}
+
+.task-datatable .ui-datatable-tbody > tr {
+    border-color: var(--surface-d);
+    transition: background-color 0.2s ease;
+}
+.task-datatable .ui-datatable-tbody > tr:hover {
+    background-color: var(--surface-c) !important; /* Subtle hover */
+}
+
+.task-datatable .ui-paginator {
+    padding: 1rem;
+}
+
+/* Utility */
+.text-primary { color: var(--primary-color); }
+
+/* Scrollbar styling (optional, webkit browsers) */
+.scrollable-container .ui-card-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-container .ui-card-content::-webkit-scrollbar-track {
+    background: var(--surface-b);
+    border-radius: 4px;
+}
+
+.scrollable-container .ui-card-content::-webkit-scrollbar-thumb {
+    background-color: var(--surface-d);
+    border-radius: 4px;
+    border: 2px solid var(--surface-b); /* Creates padding around thumb */
+}
+.scrollable-container .ui-card-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--surface-e);
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RebatesDiscountsTableViewDlg" widgetVar="RebatesDiscountsTableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRebatesDiscountsTableTitle}">
+            <h:form id="RebatesDiscountsTableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{rebatesDiscountsTableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_id}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.id}" title="#{bundle.ViewRebatesDiscountsTableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_contractId}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.contractId}" title="#{bundle.ViewRebatesDiscountsTableTitle_contractId}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_rebateType}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.rebateType}" title="#{bundle.ViewRebatesDiscountsTableTitle_rebateType}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_calculationBasis}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.calculationBasis}" title="#{bundle.ViewRebatesDiscountsTableTitle_calculationBasis}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_valueParam}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.valueParam}" title="#{bundle.ViewRebatesDiscountsTableTitle_valueParam}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_description}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.description}" title="#{bundle.ViewRebatesDiscountsTableTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_conditionText}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.conditionText}" title="#{bundle.ViewRebatesDiscountsTableTitle_conditionText}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_trackingMetricType}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.trackingMetricType}" title="#{bundle.ViewRebatesDiscountsTableTitle_trackingMetricType}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_targetValueMetric}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.targetValueMetric}" title="#{bundle.ViewRebatesDiscountsTableTitle_targetValueMetric}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_currentValueMetric}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.currentValueMetric}" title="#{bundle.ViewRebatesDiscountsTableTitle_currentValueMetric}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_startDate}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.startDate}" title="#{bundle.ViewRebatesDiscountsTableTitle_startDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_endDate}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.endDate}" title="#{bundle.ViewRebatesDiscountsTableTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_estimatedRebateAmount}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.estimatedRebateAmount}" title="#{bundle.ViewRebatesDiscountsTableTitle_estimatedRebateAmount}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_actualRebateAmount}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.actualRebateAmount}" title="#{bundle.ViewRebatesDiscountsTableTitle_actualRebateAmount}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_status}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.status}" title="#{bundle.ViewRebatesDiscountsTableTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_appliedToPaymentId}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.appliedToPaymentId}" title="#{bundle.ViewRebatesDiscountsTableTitle_appliedToPaymentId}"/>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_createdAt}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.createdAt}" title="#{bundle.ViewRebatesDiscountsTableTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRebatesDiscountsTableLabel_updatedAt}"/>
+                        <h:outputText value="#{rebatesDiscountsTableController.selected.updatedAt}" title="#{bundle.ViewRebatesDiscountsTableTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="RebatesDiscountsTableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContractsTableViewDlg" widgetVar="ContractsTableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContractsTableTitle}">
+            <h:form id="ContractsTableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contractsTableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_id}"/>
+                        <h:outputText value="#{contractsTableController.selected.id}" title="#{bundle.ViewContractsTableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_contractTitle}"/>
+                        <h:outputText value="#{contractsTableController.selected.contractTitle}" title="#{bundle.ViewContractsTableTitle_contractTitle}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_referenceNumber}"/>
+                        <h:outputText value="#{contractsTableController.selected.referenceNumber}" title="#{bundle.ViewContractsTableTitle_referenceNumber}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_descriptionScope}"/>
+                        <h:outputText value="#{contractsTableController.selected.descriptionScope}" title="#{bundle.ViewContractsTableTitle_descriptionScope}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_effectiveDate}"/>
+                        <h:outputText value="#{contractsTableController.selected.effectiveDate}" title="#{bundle.ViewContractsTableTitle_effectiveDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_initialExpiryDate}"/>
+                        <h:outputText value="#{contractsTableController.selected.initialExpiryDate}" title="#{bundle.ViewContractsTableTitle_initialExpiryDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_currentExpiryDate}"/>
+                        <h:outputText value="#{contractsTableController.selected.currentExpiryDate}" title="#{bundle.ViewContractsTableTitle_currentExpiryDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_noticePeriodDaysForTermination}"/>
+                        <h:outputText value="#{contractsTableController.selected.noticePeriodDaysForTermination}" title="#{bundle.ViewContractsTableTitle_noticePeriodDaysForTermination}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_autoRenewalEnabled}"/>
+                        <p:selectBooleanCheckbox value="#{contractsTableController.selected.autoRenewalEnabled}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_renewalTermMonths}"/>
+                        <h:outputText value="#{contractsTableController.selected.renewalTermMonths}" title="#{bundle.ViewContractsTableTitle_renewalTermMonths}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_contractValue}"/>
+                        <h:outputText value="#{contractsTableController.selected.contractValue}" title="#{bundle.ViewContractsTableTitle_contractValue}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_currencyCode}"/>
+                        <h:outputText value="#{contractsTableController.selected.currencyCode}" title="#{bundle.ViewContractsTableTitle_currencyCode}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_governingLawJurisdiction}"/>
+                        <h:outputText value="#{contractsTableController.selected.governingLawJurisdiction}" title="#{bundle.ViewContractsTableTitle_governingLawJurisdiction}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_parentContractId}"/>
+                        <h:outputText value="#{contractsTableController.selected.parentContractId}" title="#{bundle.ViewContractsTableTitle_parentContractId}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_createdByUserId}"/>
+                        <h:outputText value="#{contractsTableController.selected.createdByUserId}" title="#{bundle.ViewContractsTableTitle_createdByUserId}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_createdAt}"/>
+                        <h:outputText value="#{contractsTableController.selected.createdAt}" title="#{bundle.ViewContractsTableTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_updatedByUserId}"/>
+                        <h:outputText value="#{contractsTableController.selected.updatedByUserId}" title="#{bundle.ViewContractsTableTitle_updatedByUserId}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_updatedAt}"/>
+                        <h:outputText value="#{contractsTableController.selected.updatedAt}" title="#{bundle.ViewContractsTableTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberCustomer1}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberCustomer1}" title="#{bundle.ViewContractsTableTitle_addressNumberCustomer1}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberRep1}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberRep1}" title="#{bundle.ViewContractsTableTitle_addressNumberRep1}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberPrepared}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberPrepared}" title="#{bundle.ViewContractsTableTitle_addressNumberPrepared}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberAproved}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberAproved}" title="#{bundle.ViewContractsTableTitle_addressNumberAproved}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberChecked}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberChecked}" title="#{bundle.ViewContractsTableTitle_addressNumberChecked}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberCustomer2}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberCustomer2}" title="#{bundle.ViewContractsTableTitle_addressNumberCustomer2}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberCustomer3}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberCustomer3}" title="#{bundle.ViewContractsTableTitle_addressNumberCustomer3}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberRep2}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberRep2}" title="#{bundle.ViewContractsTableTitle_addressNumberRep2}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberRep3}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberRep3}" title="#{bundle.ViewContractsTableTitle_addressNumberRep3}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_addressNumberRep4}"/>
+                        <h:outputText value="#{contractsTableController.selected.addressNumberRep4}" title="#{bundle.ViewContractsTableTitle_addressNumberRep4}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_contractCurrency}"/>
+                        <h:outputText value="#{contractsTableController.selected.contractCurrency}" title="#{bundle.ViewContractsTableTitle_contractCurrency}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_taxRate}"/>
+                        <h:outputText value="#{contractsTableController.selected.taxRate}" title="#{bundle.ViewContractsTableTitle_taxRate}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_initalStartDate}"/>
+                        <h:outputText value="#{contractsTableController.selected.initalStartDate}" title="#{bundle.ViewContractsTableTitle_initalStartDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_endStartDate}"/>
+                        <h:outputText value="#{contractsTableController.selected.endStartDate}" title="#{bundle.ViewContractsTableTitle_endStartDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_cancellationFee}"/>
+                        <h:outputText value="#{contractsTableController.selected.cancellationFee}" title="#{bundle.ViewContractsTableTitle_cancellationFee}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_retinageAmount}"/>
+                        <h:outputText value="#{contractsTableController.selected.retinageAmount}" title="#{bundle.ViewContractsTableTitle_retinageAmount}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_contractIdentitySide}"/>
+                        <h:outputText value="#{contractsTableController.selected.contractIdentitySide}" title="#{bundle.ViewContractsTableTitle_contractIdentitySide}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_contractStatusId}"/>
+                        <h:outputText value="#{contractsTableController.selected.contractStatusId}" title="#{bundle.ViewContractsTableTitle_contractStatusId}"/>
+                        <h:outputText value="#{bundle.ViewContractsTableLabel_contractTypeId}"/>
+                        <h:outputText value="#{contractsTableController.selected.contractTypeId}" title="#{bundle.ViewContractsTableTitle_contractTypeId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ContractsTableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

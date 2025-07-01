@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContractItemTableViewDlg" widgetVar="ContractItemTableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContractItemTableTitle}">
+            <h:form id="ContractItemTableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contractItemTableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_id}"/>
+                        <h:outputText value="#{contractItemTableController.selected.id}" title="#{bundle.ViewContractItemTableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_amountQuantity}"/>
+                        <h:outputText value="#{contractItemTableController.selected.amountQuantity}" title="#{bundle.ViewContractItemTableTitle_amountQuantity}"/>
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_itemsTable}"/>
+                        <h:outputText value="#{contractItemTableController.selected.itemsTable}" title="#{bundle.ViewContractItemTableTitle_itemsTable}"/>
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_unitOfMeasure}"/>
+                        <h:outputText value="#{contractItemTableController.selected.unitOfMeasure}" title="#{bundle.ViewContractItemTableTitle_unitOfMeasure}"/>
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_unitAmount}"/>
+                        <h:outputText value="#{contractItemTableController.selected.unitAmount}" title="#{bundle.ViewContractItemTableTitle_unitAmount}"/>
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_extendedAmount}"/>
+                        <h:outputText value="#{contractItemTableController.selected.extendedAmount}" title="#{bundle.ViewContractItemTableTitle_extendedAmount}"/>
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_usersId}"/>
+                        <h:outputText value="#{contractItemTableController.selected.usersId}" title="#{bundle.ViewContractItemTableTitle_usersId}"/>
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_dateEnered}"/>
+                        <h:outputText value="#{contractItemTableController.selected.dateEnered}" title="#{bundle.ViewContractItemTableTitle_dateEnered}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_dateUpdated}"/>
+                        <h:outputText value="#{contractItemTableController.selected.dateUpdated}" title="#{bundle.ViewContractItemTableTitle_dateUpdated}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractItemTableLabel_contractId}"/>
+                        <h:outputText value="#{contractItemTableController.selected.contractId}" title="#{bundle.ViewContractItemTableTitle_contractId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ContractItemTableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

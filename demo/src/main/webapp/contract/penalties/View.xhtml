@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PenaltiesViewDlg" widgetVar="PenaltiesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPenaltiesTitle}">
+            <h:form id="PenaltiesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{penaltiesController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_id}"/>
+                        <h:outputText value="#{penaltiesController.selected.id}" title="#{bundle.ViewPenaltiesTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_contractId}"/>
+                        <h:outputText value="#{penaltiesController.selected.contractId}" title="#{bundle.ViewPenaltiesTitle_contractId}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_breachType}"/>
+                        <h:outputText value="#{penaltiesController.selected.breachType}" title="#{bundle.ViewPenaltiesTitle_breachType}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_description}"/>
+                        <h:outputText value="#{penaltiesController.selected.description}" title="#{bundle.ViewPenaltiesTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_incurredDate}"/>
+                        <h:outputText value="#{penaltiesController.selected.incurredDate}" title="#{bundle.ViewPenaltiesTitle_incurredDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_penaltyAmount}"/>
+                        <h:outputText value="#{penaltiesController.selected.penaltyAmount}" title="#{bundle.ViewPenaltiesTitle_penaltyAmount}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_currency}"/>
+                        <h:outputText value="#{penaltiesController.selected.currency}" title="#{bundle.ViewPenaltiesTitle_currency}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_relatedClauseRef}"/>
+                        <h:outputText value="#{penaltiesController.selected.relatedClauseRef}" title="#{bundle.ViewPenaltiesTitle_relatedClauseRef}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_gracePeriodDaysApplied}"/>
+                        <h:outputText value="#{penaltiesController.selected.gracePeriodDaysApplied}" title="#{bundle.ViewPenaltiesTitle_gracePeriodDaysApplied}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_status}"/>
+                        <h:outputText value="#{penaltiesController.selected.status}" title="#{bundle.ViewPenaltiesTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_resolutionDate}"/>
+                        <h:outputText value="#{penaltiesController.selected.resolutionDate}" title="#{bundle.ViewPenaltiesTitle_resolutionDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_resolvedByUserId}"/>
+                        <h:outputText value="#{penaltiesController.selected.resolvedByUserId}" title="#{bundle.ViewPenaltiesTitle_resolvedByUserId}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_notes}"/>
+                        <h:outputText value="#{penaltiesController.selected.notes}" title="#{bundle.ViewPenaltiesTitle_notes}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_proofDocumentId}"/>
+                        <h:outputText value="#{penaltiesController.selected.proofDocumentId}" title="#{bundle.ViewPenaltiesTitle_proofDocumentId}"/>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_createdAt}"/>
+                        <h:outputText value="#{penaltiesController.selected.createdAt}" title="#{bundle.ViewPenaltiesTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPenaltiesLabel_updatedAt}"/>
+                        <h:outputText value="#{penaltiesController.selected.updatedAt}" title="#{bundle.ViewPenaltiesTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PenaltiesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

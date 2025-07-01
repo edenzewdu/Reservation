@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/contractTemplate.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="ContractItemTable"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="ContractItemTableListForm">
+                <p:panel header="ContractItemTable">
+                    <p:toolbar styleClass="p-mb-4">
+
+                        <p:toolbarGroup>
+                            <p:commandButton id="createButton" styleClass="p-mr-2 p-mb-2" icon="pi pi-plus"   value="Create" actionListener="#{contractItemTableController.prepareCreate}" action="Create.xhtml?faces-redirect=true" />
+                            <p:commandButton id="copyButton"  actionListener="#{contractItemTableController.prepareCopy}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-copy" value="Copy" action="Create.xhtml?faces-redirect=true" disabled="#{empty contractItemTableController.multiselectionItems}"/>
+                            <p:commandButton   id="editButton" actionListener="#{contractItemTableController.prepareEdit}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-pencil" value="Edit" action="Edit.xhtml?faces-redirect=true" disabled="#{empty contractItemTableController.multiselectionItems}"/>
+                            <p:commandButton id="deleteButton"   styleClass="p-mr-2 p-mb-2" icon="pi pi-trash"  value="Delete" actionListener="#{contractItemTableController.destroy}" update=":growl,datalist" disabled="#{empty contractItemTableController.multiselectionItems}">
+                                <p:confirm type="popup" header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-arrow-left" styleClass="p-mr-2 p-mb-2" value="Back" onclick="window.history.back()"/>
+                            <p:menuButton styleClass="p-mr-2 p-mb-2" icon="pi pi-list" value="Details">
+                                //Add Something
+                            </p:menuButton>
+                            <p:menuButton styleClass="p-mr-2 p-mb-2" icon="pi pi-list" value="Others">
+                                //Add Something
+                            </p:menuButton>
+                        </p:toolbarGroup>
+
+                        <p:toolbarGroup>
+                            <p:commandButton styleClass="p-mr-2 p-mb-2" icon="pi pi-refresh"   value="Refresh All List"  actionListener="#{contractItemTableController.refreshList}" update="datalist"/>
+                        </p:toolbarGroup> 
+                        <p:toolbarGroup> 
+                            <p:menuButton styleClass="p-mr-2 p-mb-2" icon="pi pi-list" value="Column">
+                                //Add Something
+                            </p:menuButton>
+                        </p:toolbarGroup> 
+
+                        <p:toolbarGroup>
+
+                            <p:menuButton value="Export">
+                                <p:menuitem value="XLS" styleClass="p-mr-2 p-mb-2" icon="pi pi-upload">
+                                    <p:dataExporter type="xls" target="datalist" fileName="#{bundle.ListContractItemTableTitle}"/>
+                                </p:menuitem>
+                                <p:menuitem value="PDF" styleClass="p-mr-2 p-mb-2">
+                                    <p:dataExporter type="pdf" target="datalist" fileName="#{bundle.ListContractItemTableTitle}"/>
+                                </p:menuitem>
+                                <p:menuitem value="CSV" styleClass="p-mr-2 p-mb-2">
+                                    <p:dataExporter type="csv" target="datalist" fileName="#{bundle.ListContractItemTableTitle}" />
+                                </p:menuitem>
+                                <p:menuitem value="XML" styleClass="p-mr-2 p-mb-2">
+                                    <p:dataExporter type="xml" target="datalist" fileName="#{bundle.ListContractItemTableTitle}"/>
+                                </p:menuitem>
+                            </p:menuButton>
+                        </p:toolbarGroup> 
+                    </p:toolbar>
+                    <br/>
+                    <p:dataTable id="datalist" value="#{contractItemTableController.items}" var="item"
+                                 selectionPageOnly="false" selection="#{contractItemTableController.multiselectionItems}"
+                                 paginator="true"  tableStyle="width:auto"
+                                 paginatorPosition="bottom"
+                                 reflow="true"
+                                 styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines"
+                                 rowSelectMode="none" resizableColumns="true" resizeMode="expand"
+                                 rowKey="#{item.id}"
+                                 rows="10" widgetVar="widgetItem" filteredValue="#{contractItemTableController.filteredValues}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelectCheckbox"   update="@form ContractItemTableListForm:createButton ContractItemTableListForm:copyButton ContractItemTableListForm:editButton ContractItemTableListForm:deleteButton"/>
+                        <p:ajax event="rowUnselectCheckbox" update="@form ContractItemTableListForm:createButton ContractItemTableListForm:copyButton ContractItemTableListForm:editButton ContractItemTableListForm:deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width: 16px; text-align: center"/>
+                        <p:column  sortBy="#{item.id}"  filterBy="#{item.id}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.amountQuantity}"  filterBy="#{item.amountQuantity}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="amountQuantity"/>
+                            </f:facet>
+                            <h:outputText value="#{item.amountQuantity}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.itemsTable}"  filterBy="#{item.itemsTable}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="itemsTable"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemsTable}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.unitOfMeasure}"  filterBy="#{item.unitOfMeasure}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="unitOfMeasure"/>
+                            </f:facet>
+                            <h:outputText value="#{item.unitOfMeasure}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.unitAmount}"  filterBy="#{item.unitAmount}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="unitAmount"/>
+                            </f:facet>
+                            <h:outputText value="#{item.unitAmount}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.extendedAmount}"  filterBy="#{item.extendedAmount}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="extendedAmount"/>
+                            </f:facet>
+                            <h:outputText value="#{item.extendedAmount}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.usersId}"  filterBy="#{item.usersId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="usersId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usersId}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.dateEnered}"  filterBy="#{item.dateEnered}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="dateEnered"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateEnered}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.dateUpdated}"  filterBy="#{item.dateUpdated}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="dateUpdated"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateUpdated}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.contractId}"  filterBy="#{item.contractId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="contractId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractId}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:contextMenu for="datalist">
+                        <p:menuitem  id="createButton1" styleClass="p-mr-2 p-mb-2" icon="pi pi-plus"   value="Create" actionListener="#{contractItemTableController.prepareCreate}" action="Create.xhtml?faces-redirect=true" />
+                        <p:menuitem  id="copyButton1" actionListener="#{contractItemTableController.prepareCopy}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-copy" value="Copy" action="Create.xhtml?faces-redirect=true" disabled="#{empty contractItemTableController.multiselectionItems}"/>
+                        <p:menuitem id="editButton1"  actionListener="#{contractItemTableController.prepareEdit}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-pencil" value="Edit" action="Edit.xhtml?faces-redirect=true" disabled="#{empty contractItemTableController.multiselectionItems}"/>
+                        <p:menuitem id="deleteButton1"  styleClass="p-mr-2 p-mb-2" icon="pi pi-trash"  value="Delete" actionListener="#{contractItemTableController.destroy}" update=":growl,datalist" disabled="#{empty contractItemTableController.multiselectionItems}">
+                            <p:confirm type="popup" header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
+                        </p:menuitem>
+                        <p:submenu  icon="pi pi-list" label="Details">
+                        </p:submenu>
+
+                    </p:contextMenu>
+                    <p:confirmPopup global="true">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
+                    </p:confirmPopup>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

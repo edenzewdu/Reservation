@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Dovor - Login</title>
+    <!-- Link to the NEW enhanced stylesheet -->
+    <h:outputStylesheet name="css/login-style2.css"/>
+    <!-- Keep PrimeIcons for the button icon -->
+    <h:outputStylesheet library="primefaces" name="primeicons/primeicons.css"/>
+
+    <!-- Old stylesheets commented out -->
+    <!-- <h:outputStylesheet name="css/login-style1.css"/> -->
+    <!-- <h:outputStylesheet name="css/login-style2.css" /> -->
+</h:head>
+
+<h:body>
+    <div class="login-wrapper">
+        <div class="login-container">
+
+            <div class="logo-container">
+<!--                <h:graphicImage name="productIcons.png" library="images" alt="Savvy POS Logo" styleClass="logo-image"/>-->
+                <!-- Added Product Name Title -->
+                <h2 class="product-title">Dovor</h2>
+            </div>
+
+            <!-- Use p:panel purely for grouping, style via CSS -->
+            <p:panel styleClass="login-panel" style="zoom: 80%">
+                <h:form id="loginForm">
+                    <!-- Place Growl inside the form but maybe outside the main input area visually -->
+                    <p:growl id="growl" life="4000" showDetail="true" />
+
+                    <div class="input-group">
+                        <p:outputLabel for="username" value="Username" styleClass="input-label"/>
+                        <p:inputText id="username"
+                                     required="true"
+                                     value="#{loginView.employeeId}"
+                                     styleClass="input-field"
+                                     requiredMessage="Username is required."
+                                     placeholder="Enter your username"/>
+                    </div>
+
+                    <div class="input-group">
+                        <p:outputLabel for="password" value="Password" styleClass="input-label"/>
+                        <p:password id="password"
+                                    value="#{loginView.password}"
+                                    required="true"
+                                    styleClass="input-field"
+                                    requiredMessage="Password is required."
+                                    placeholder="Enter your password"
+                                    feedback="false"/> <!-- Disable password strength feedback unless desired -->
+                    </div>
+
+                    <p:commandButton value="Login"
+                                     actionListener="#{loginView.login()}"
+                                     update="@form growl"
+                    styleClass="login-button"
+                    icon="pi pi-sign-in"
+                    />
+                </h:form>
+            </p:panel>
+
+<!--            &lt;!&ndash; Support Contact Information &ndash;&gt;-->
+<!--            <div class="support-info">-->
+<!--                <p>Need help? Contact support:</p>-->
+<!--                <p><i class="pi pi-envelope support-icon"></i> info@techequations.com</p>-->
+<!--                <p><i class="pi pi-phone support-icon"></i> +251-935-72-49-20 / +251-912-50-32-17</p>-->
+<!--            </div>-->
+
+        </div>
+    </div>
+</h:body>
+</html>

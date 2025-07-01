@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="WarrantiesTableViewDlg" widgetVar="WarrantiesTableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewWarrantiesTableTitle}">
+            <h:form id="WarrantiesTableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{warrantiesTableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_id}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.id}" title="#{bundle.ViewWarrantiesTableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_contractId}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.contractId}" title="#{bundle.ViewWarrantiesTableTitle_contractId}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_warrantedItemDescription}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.warrantedItemDescription}" title="#{bundle.ViewWarrantiesTableTitle_warrantedItemDescription}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_manufacturerModel}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.manufacturerModel}" title="#{bundle.ViewWarrantiesTableTitle_manufacturerModel}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_serialNumber}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.serialNumber}" title="#{bundle.ViewWarrantiesTableTitle_serialNumber}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_warrantyType}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.warrantyType}" title="#{bundle.ViewWarrantiesTableTitle_warrantyType}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_warrantyProviderPartyId}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.warrantyProviderPartyId}" title="#{bundle.ViewWarrantiesTableTitle_warrantyProviderPartyId}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_startDate}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.startDate}" title="#{bundle.ViewWarrantiesTableTitle_startDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_endDate}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.endDate}" title="#{bundle.ViewWarrantiesTableTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_coverageScopeText}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.coverageScopeText}" title="#{bundle.ViewWarrantiesTableTitle_coverageScopeText}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_exclusionsText}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.exclusionsText}" title="#{bundle.ViewWarrantiesTableTitle_exclusionsText}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_isActive}"/>
+                        <p:selectBooleanCheckbox value="#{warrantiesTableController.selected.isActive}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_isVoided}"/>
+                        <p:selectBooleanCheckbox value="#{warrantiesTableController.selected.isVoided}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_voidReason}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.voidReason}" title="#{bundle.ViewWarrantiesTableTitle_voidReason}"/>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_createdAt}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.createdAt}" title="#{bundle.ViewWarrantiesTableTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewWarrantiesTableLabel_updatedAt}"/>
+                        <h:outputText value="#{warrantiesTableController.selected.updatedAt}" title="#{bundle.ViewWarrantiesTableTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="WarrantiesTableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

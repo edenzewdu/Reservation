@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContractPartiesTableViewDlg" widgetVar="ContractPartiesTableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContractPartiesTableTitle}">
+            <h:form id="ContractPartiesTableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contractPartiesTableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContractPartiesTableLabel_id}"/>
+                        <h:outputText value="#{contractPartiesTableController.selected.id}" title="#{bundle.ViewContractPartiesTableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewContractPartiesTableLabel_legalName}"/>
+                        <h:outputText value="#{contractPartiesTableController.selected.legalName}" title="#{bundle.ViewContractPartiesTableTitle_legalName}"/>
+                        <h:outputText value="#{bundle.ViewContractPartiesTableLabel_shortName}"/>
+                        <h:outputText value="#{contractPartiesTableController.selected.shortName}" title="#{bundle.ViewContractPartiesTableTitle_shortName}"/>
+                        <h:outputText value="#{bundle.ViewContractPartiesTableLabel_registrationNumber}"/>
+                        <h:outputText value="#{contractPartiesTableController.selected.registrationNumber}" title="#{bundle.ViewContractPartiesTableTitle_registrationNumber}"/>
+                        <h:outputText value="#{bundle.ViewContractPartiesTableLabel_createdAt}"/>
+                        <h:outputText value="#{contractPartiesTableController.selected.createdAt}" title="#{bundle.ViewContractPartiesTableTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractPartiesTableLabel_updatedAt}"/>
+                        <h:outputText value="#{contractPartiesTableController.selected.updatedAt}" title="#{bundle.ViewContractPartiesTableTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractPartiesTableLabel_addressNumberAb}"/>
+                        <h:outputText value="#{contractPartiesTableController.selected.addressNumberAb}" title="#{bundle.ViewContractPartiesTableTitle_addressNumberAb}"/>
+                        <h:outputText value="#{bundle.ViewContractPartiesTableLabel_partyTypeId}"/>
+                        <h:outputText value="#{contractPartiesTableController.selected.partyTypeId}" title="#{bundle.ViewContractPartiesTableTitle_partyTypeId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ContractPartiesTableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
