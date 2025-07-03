@@ -3,15 +3,16 @@ package com.demo.jsf;
 import com.demo.entity.Book;
 import com.demo.jsf.util.JsfUtil;
 import com.demo.session.BookFacade;
-import com.demo.session.ReservationFacade;
-import com.demo.entity.Reservation;
 
 import jakarta.ejb.EJB;
-import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.util.List;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Named("bookController")
 @SessionScoped
@@ -20,20 +21,13 @@ public class BookController implements Serializable {
     @EJB
     private BookFacade bookFacade;
 
-    @EJB
-    private ReservationFacade reservationFacade;
+    @Inject
+    private ReservationController reservationController;
 
-    private List<Book> books;
+    private List<Book> items = null;
     private Book selected;
 
-    private String currentUser = "userA"; // Replace with real session user
-
-    public List<Book> getBooks() {
-        if (books == null) {
-            books = bookFacade.findAll();
-        }
-        return books;
-    }
+    public BookController() {}
 
     public Book getSelected() {
         return selected;
@@ -43,30 +37,62 @@ public class BookController implements Serializable {
         this.selected = selected;
     }
 
-    public void autoReserve() {
-        if (selected == null) return;
+    public List<Book> getItems() {
+        if (items == null) {
+            items = bookFacade.findAll();
+        }
+        return items;
+    }
 
-        Reservation existing = reservationFacade.findActiveReservation("book", selected.getId());
-        if (existing == null) {
-            Reservation r = new Reservation();
-            r.setReservedTable("book");
-            r.setRowId(selected.getId());
-            r.setReservedBy(currentUser);
-            r.setReservedStartTime(new Date());
-            reservationFacade.create(r);
-            JsfUtil.addSuccessMessage("Record reserved.");
-        } else if (!existing.getReservedBy().equals(currentUser)) {
-            JsfUtil.addErrorMessage("This book is currently reserved by " + existing.getReservedBy());
-            selected = null; // Unselect
+    public Book prepareEdit(Book book) {
+        this.selected = book;
+        boolean reserved = reservationController.reserve("book", book.getId());
+        if (reserved) {
+            return book;
+        } else {
+            selected = null;
+            return null;
         }
     }
 
-    public void save() {
-        bookFacade.edit(selected);
-        Reservation r = reservationFacade.findActiveReservation("book", selected.getId());
-        if (r != null) reservationFacade.remove(r); // release
-        selected = null;
-        books = null;
-        JsfUtil.addSuccessMessage("Book updated and reservation released.");
+    public void update() {
+        if (selected == null) return;
+
+        if (!reservationController.canEdit("book", selected.getId())) {
+            JsfUtil.addErrorMessage("You do not hold the reservation for this record.");
+            return;
+        }
+
+        try {
+            bookFacade.edit(selected);
+            JsfUtil.addSuccessMessage("Book updated successfully.");
+            reservationController.release("book", selected.getId());
+            items = null;
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+            JsfUtil.addErrorMessage("Could not update book.");
+        }
     }
+
+    public void cancelEdit() {
+        if (selected != null) {
+            reservationController.release("book", selected.getId());
+            selected = null;
+        }
+    }
+    public void reserveIfNotReserved() {
+        if (selected != null && selected.getId() != null) {
+            reservationController.reserve("book", selected.getId());
+        }
+    }
+
+
+    public boolean isReserved(Book book) {
+        return reservationController.isReserved("book", book.getId());
+    }
+
+    public String getReservedBy(Book book) {
+        return reservationController.getReservedBy("book", book.getId());
+    }
+
 }

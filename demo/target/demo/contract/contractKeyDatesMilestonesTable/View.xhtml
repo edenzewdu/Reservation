@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContractKeyDatesMilestonesTableViewDlg" widgetVar="ContractKeyDatesMilestonesTableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContractKeyDatesMilestonesTableTitle}">
+            <h:form id="ContractKeyDatesMilestonesTableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contractKeyDatesMilestonesTableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_id}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.id}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_milestoneName}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.milestoneName}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_milestoneName}"/>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_description}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.description}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_dueDate}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.dueDate}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_dueDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_assignedContactId}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.assignedContactId}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_assignedContactId}"/>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_reminderLeadDays}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.reminderLeadDays}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_reminderLeadDays}"/>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_completedDate}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.completedDate}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_completedDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_usersId}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.usersId}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_usersId}"/>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_contractId}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.contractId}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_contractId}"/>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_statusId}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.statusId}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_statusId}"/>
+                        <h:outputText value="#{bundle.ViewContractKeyDatesMilestonesTableLabel_responsiblePartyId}"/>
+                        <h:outputText value="#{contractKeyDatesMilestonesTableController.selected.responsiblePartyId}" title="#{bundle.ViewContractKeyDatesMilestonesTableTitle_responsiblePartyId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ContractKeyDatesMilestonesTableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

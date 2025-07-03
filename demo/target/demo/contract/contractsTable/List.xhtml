@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/contractTemplate.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="ContractsTable"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="ContractsTableListForm">
+                <p:panel header="ContractsTable">
+                    <p:toolbar styleClass="p-mb-4">
+
+                        <p:toolbarGroup>
+                            <p:commandButton id="createButton" styleClass="p-mr-2 p-mb-2" icon="pi pi-plus"   value="Create" actionListener="#{contractsTableController.prepareCreate}" action="Create.xhtml?faces-redirect=true" />
+                            <p:commandButton id="copyButton"  actionListener="#{contractsTableController.prepareCopy}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-copy" value="Copy" action="Create.xhtml?faces-redirect=true" disabled="#{empty contractsTableController.multiselectionItems}"/>
+                            <p:commandButton   id="editButton" actionListener="#{contractsTableController.prepareEdit}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-pencil" value="Edit" action="Edit.xhtml?faces-redirect=true" disabled="#{empty contractsTableController.multiselectionItems}"/>
+                            <p:commandButton id="deleteButton"   styleClass="p-mr-2 p-mb-2" icon="pi pi-trash"  value="Delete" actionListener="#{contractsTableController.destroy}" update=":growl,datalist" disabled="#{empty contractsTableController.multiselectionItems}">
+                                <p:confirm type="popup" header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-arrow-left" styleClass="p-mr-2 p-mb-2" value="Back" onclick="window.history.back()"/>
+                            <p:menuButton styleClass="p-mr-2 p-mb-2" icon="pi pi-list" value="Details">
+                                //Add Something
+                            </p:menuButton>
+                            <p:menuButton styleClass="p-mr-2 p-mb-2" icon="pi pi-list" value="Others">
+                                //Add Something
+                            </p:menuButton>
+                        </p:toolbarGroup>
+
+                        <p:toolbarGroup>
+                            <p:commandButton styleClass="p-mr-2 p-mb-2" icon="pi pi-refresh"   value="Refresh All List"  actionListener="#{contractsTableController.refreshList}" update="datalist"/>
+                        </p:toolbarGroup> 
+                        <p:toolbarGroup> 
+                            <p:menuButton styleClass="p-mr-2 p-mb-2" icon="pi pi-list" value="Column">
+                                //Add Something
+                            </p:menuButton>
+                        </p:toolbarGroup> 
+
+                        <p:toolbarGroup>
+
+                            <p:menuButton value="Export">
+                                <p:menuitem value="XLS" styleClass="p-mr-2 p-mb-2" icon="pi pi-upload">
+                                    <p:dataExporter type="xls" target="datalist" fileName="#{bundle.ListContractsTableTitle}"/>
+                                </p:menuitem>
+                                <p:menuitem value="PDF" styleClass="p-mr-2 p-mb-2">
+                                    <p:dataExporter type="pdf" target="datalist" fileName="#{bundle.ListContractsTableTitle}"/>
+                                </p:menuitem>
+                                <p:menuitem value="CSV" styleClass="p-mr-2 p-mb-2">
+                                    <p:dataExporter type="csv" target="datalist" fileName="#{bundle.ListContractsTableTitle}" />
+                                </p:menuitem>
+                                <p:menuitem value="XML" styleClass="p-mr-2 p-mb-2">
+                                    <p:dataExporter type="xml" target="datalist" fileName="#{bundle.ListContractsTableTitle}"/>
+                                </p:menuitem>
+                            </p:menuButton>
+                        </p:toolbarGroup> 
+                    </p:toolbar>
+                    <br/>
+                    <p:dataTable id="datalist" value="#{contractsTableController.items}" var="item"
+                                 selectionPageOnly="false" selection="#{contractsTableController.multiselectionItems}"
+                                 paginator="true"  tableStyle="width:auto"
+                                 paginatorPosition="bottom"
+                                 reflow="true"
+                                 styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines"
+                                 rowSelectMode="none" resizableColumns="true" resizeMode="expand"
+                                 rowKey="#{item.id}"
+                                 rows="10" widgetVar="widgetItem" filteredValue="#{contractsTableController.filteredValues}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelectCheckbox"   update="@form ContractsTableListForm:createButton ContractsTableListForm:copyButton ContractsTableListForm:editButton ContractsTableListForm:deleteButton"/>
+                        <p:ajax event="rowUnselectCheckbox" update="@form ContractsTableListForm:createButton ContractsTableListForm:copyButton ContractsTableListForm:editButton ContractsTableListForm:deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width: 16px; text-align: center"/>
+                        <p:column  sortBy="#{item.id}"  filterBy="#{item.id}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.contractTitle}"  filterBy="#{item.contractTitle}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="contractTitle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractTitle}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.referenceNumber}"  filterBy="#{item.referenceNumber}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="referenceNumber"/>
+                            </f:facet>
+                            <h:outputText value="#{item.referenceNumber}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.descriptionScope}"  filterBy="#{item.descriptionScope}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="descriptionScope"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descriptionScope}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.effectiveDate}"  filterBy="#{item.effectiveDate}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="effectiveDate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.effectiveDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.initialExpiryDate}"  filterBy="#{item.initialExpiryDate}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="initialExpiryDate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.initialExpiryDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.currentExpiryDate}"  filterBy="#{item.currentExpiryDate}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="currentExpiryDate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.currentExpiryDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.noticePeriodDaysForTermination}"  filterBy="#{item.noticePeriodDaysForTermination}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="noticePeriodDaysForTermination"/>
+                            </f:facet>
+                            <h:outputText value="#{item.noticePeriodDaysForTermination}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.autoRenewalEnabled}"  filterBy="#{item.autoRenewalEnabled}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="autoRenewalEnabled"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.autoRenewalEnabled}" disabled="true"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.renewalTermMonths}"  filterBy="#{item.renewalTermMonths}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="renewalTermMonths"/>
+                            </f:facet>
+                            <h:outputText value="#{item.renewalTermMonths}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.contractValue}"  filterBy="#{item.contractValue}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="contractValue"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractValue}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.currencyCode}"  filterBy="#{item.currencyCode}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="currencyCode"/>
+                            </f:facet>
+                            <h:outputText value="#{item.currencyCode}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.governingLawJurisdiction}"  filterBy="#{item.governingLawJurisdiction}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="governingLawJurisdiction"/>
+                            </f:facet>
+                            <h:outputText value="#{item.governingLawJurisdiction}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.parentContractId}"  filterBy="#{item.parentContractId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="parentContractId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parentContractId}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.createdByUserId}"  filterBy="#{item.createdByUserId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="createdByUserId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.createdByUserId}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.createdAt}"  filterBy="#{item.createdAt}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="createdAt"/>
+                            </f:facet>
+                            <h:outputText value="#{item.createdAt}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.updatedByUserId}"  filterBy="#{item.updatedByUserId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="updatedByUserId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.updatedByUserId}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.updatedAt}"  filterBy="#{item.updatedAt}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="updatedAt"/>
+                            </f:facet>
+                            <h:outputText value="#{item.updatedAt}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberCustomer1}"  filterBy="#{item.addressNumberCustomer1}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberCustomer1"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberCustomer1}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberRep1}"  filterBy="#{item.addressNumberRep1}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberRep1"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberRep1}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberPrepared}"  filterBy="#{item.addressNumberPrepared}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberPrepared"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberPrepared}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberAproved}"  filterBy="#{item.addressNumberAproved}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberAproved"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberAproved}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberChecked}"  filterBy="#{item.addressNumberChecked}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberChecked"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberChecked}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberCustomer2}"  filterBy="#{item.addressNumberCustomer2}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberCustomer2"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberCustomer2}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberCustomer3}"  filterBy="#{item.addressNumberCustomer3}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberCustomer3"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberCustomer3}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberRep2}"  filterBy="#{item.addressNumberRep2}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberRep2"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberRep2}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberRep3}"  filterBy="#{item.addressNumberRep3}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberRep3"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberRep3}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.addressNumberRep4}"  filterBy="#{item.addressNumberRep4}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="addressNumberRep4"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addressNumberRep4}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.contractCurrency}"  filterBy="#{item.contractCurrency}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="contractCurrency"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractCurrency}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.taxRate}"  filterBy="#{item.taxRate}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="taxRate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taxRate}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.initalStartDate}"  filterBy="#{item.initalStartDate}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="initalStartDate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.initalStartDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.endStartDate}"  filterBy="#{item.endStartDate}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="endStartDate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.endStartDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.cancellationFee}"  filterBy="#{item.cancellationFee}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="cancellationFee"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cancellationFee}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.retinageAmount}"  filterBy="#{item.retinageAmount}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="retinageAmount"/>
+                            </f:facet>
+                            <h:outputText value="#{item.retinageAmount}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.contractIdentitySide}"  filterBy="#{item.contractIdentitySide}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="contractIdentitySide"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractIdentitySide}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.contractStatusId}"  filterBy="#{item.contractStatusId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="contractStatusId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractStatusId}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.contractTypeId}"  filterBy="#{item.contractTypeId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="contractTypeId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractTypeId}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:contextMenu for="datalist">
+                        <p:menuitem  id="createButton1" styleClass="p-mr-2 p-mb-2" icon="pi pi-plus"   value="Create" actionListener="#{contractsTableController.prepareCreate}" action="Create.xhtml?faces-redirect=true" />
+                        <p:menuitem  id="copyButton1" actionListener="#{contractsTableController.prepareCopy}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-copy" value="Copy" action="Create.xhtml?faces-redirect=true" disabled="#{empty contractsTableController.multiselectionItems}"/>
+                        <p:menuitem id="editButton1"  actionListener="#{contractsTableController.prepareEdit}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-pencil" value="Edit" action="Edit.xhtml?faces-redirect=true" disabled="#{empty contractsTableController.multiselectionItems}"/>
+                        <p:menuitem id="deleteButton1"  styleClass="p-mr-2 p-mb-2" icon="pi pi-trash"  value="Delete" actionListener="#{contractsTableController.destroy}" update=":growl,datalist" disabled="#{empty contractsTableController.multiselectionItems}">
+                            <p:confirm type="popup" header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
+                        </p:menuitem>
+                        <p:submenu  icon="pi pi-list" label="Details">
+                        </p:submenu>
+
+                    </p:contextMenu>
+                    <p:confirmPopup global="true">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
+                    </p:confirmPopup>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

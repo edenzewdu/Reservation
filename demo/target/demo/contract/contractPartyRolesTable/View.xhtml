@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContractPartyRolesTableViewDlg" widgetVar="ContractPartyRolesTableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContractPartyRolesTableTitle}">
+            <h:form id="ContractPartyRolesTableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contractPartyRolesTableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContractPartyRolesTableLabel_id}"/>
+                        <h:outputText value="#{contractPartyRolesTableController.selected.id}" title="#{bundle.ViewContractPartyRolesTableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewContractPartyRolesTableLabel_isPrimaryCounterparty}"/>
+                        <p:selectBooleanCheckbox value="#{contractPartyRolesTableController.selected.isPrimaryCounterparty}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewContractPartyRolesTableLabel_contractId}"/>
+                        <h:outputText value="#{contractPartyRolesTableController.selected.contractId}" title="#{bundle.ViewContractPartyRolesTableTitle_contractId}"/>
+                        <h:outputText value="#{bundle.ViewContractPartyRolesTableLabel_partyId}"/>
+                        <h:outputText value="#{contractPartyRolesTableController.selected.partyId}" title="#{bundle.ViewContractPartyRolesTableTitle_partyId}"/>
+                        <h:outputText value="#{bundle.ViewContractPartyRolesTableLabel_roleInContractId}"/>
+                        <h:outputText value="#{contractPartyRolesTableController.selected.roleInContractId}" title="#{bundle.ViewContractPartyRolesTableTitle_roleInContractId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ContractPartyRolesTableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

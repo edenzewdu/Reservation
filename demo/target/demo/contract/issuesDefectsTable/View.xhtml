@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IssuesDefectsTableViewDlg" widgetVar="IssuesDefectsTableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIssuesDefectsTableTitle}">
+            <h:form id="IssuesDefectsTableViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{issuesDefectsTableController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_id}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.id}" title="#{bundle.ViewIssuesDefectsTableTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_contractId}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.contractId}" title="#{bundle.ViewIssuesDefectsTableTitle_contractId}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_issueCategory}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.issueCategory}" title="#{bundle.ViewIssuesDefectsTableTitle_issueCategory}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_issueDescription}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.issueDescription}" title="#{bundle.ViewIssuesDefectsTableTitle_issueDescription}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_reportedByPartyId}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.reportedByPartyId}" title="#{bundle.ViewIssuesDefectsTableTitle_reportedByPartyId}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_reportedDate}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.reportedDate}" title="#{bundle.ViewIssuesDefectsTableTitle_reportedDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_severity}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.severity}" title="#{bundle.ViewIssuesDefectsTableTitle_severity}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_impact}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.impact}" title="#{bundle.ViewIssuesDefectsTableTitle_impact}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_status}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.status}" title="#{bundle.ViewIssuesDefectsTableTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_assignedToUserId}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.assignedToUserId}" title="#{bundle.ViewIssuesDefectsTableTitle_assignedToUserId}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_resolutionDetails}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.resolutionDetails}" title="#{bundle.ViewIssuesDefectsTableTitle_resolutionDetails}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_resolutionDate}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.resolutionDate}" title="#{bundle.ViewIssuesDefectsTableTitle_resolutionDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_closureDate}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.closureDate}" title="#{bundle.ViewIssuesDefectsTableTitle_closureDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_clientAcceptanceDocId}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.clientAcceptanceDocId}" title="#{bundle.ViewIssuesDefectsTableTitle_clientAcceptanceDocId}"/>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_createdAt}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.createdAt}" title="#{bundle.ViewIssuesDefectsTableTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_updatedAt}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.updatedAt}" title="#{bundle.ViewIssuesDefectsTableTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIssuesDefectsTableLabel_warrantyId}"/>
+                        <h:outputText value="#{issuesDefectsTableController.selected.warrantyId}" title="#{bundle.ViewIssuesDefectsTableTitle_warrantyId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IssuesDefectsTableViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Book Editor</title>
+
+    <h:outputScript>
+        var idleTime = 0;
+        var idleInterval;
+
+        function resetIdleTimer() {
+            idleTime = 0;
+        }
+
+        function startIdleTimer() {
+            idleInterval = setInterval(function () {
+                idleTime++;
+                if (idleTime === 9) {
+                    alert("⚠ You have been inactive for 9 minutes. Your reservation will expire soon.");
+                }
+                if (idleTime >= 10) {
+                    clearInterval(idleInterval);
+                    releaseReservation();
+                }
+            }, 60000); // 1 minute
+        }
+
+        function releaseReservation() {
+            jsf.ajax.request('bookForm:reservationReleaseBtn', null, {
+                execute: 'bookForm',
+                render: 'bookForm'
+            });
+        }
+
+        window.onload = function () {
+            startIdleTimer();
+        };
+
+        document.addEventListener("mousemove", resetIdleTimer);
+        document.addEventListener("keypress", resetIdleTimer);
+        document.addEventListener("scroll", resetIdleTimer);
+    </h:outputScript>
+</h:head>
+
+<h:body>
+    <h:form id="bookForm">
+        <h1>📘 Book Editor</h1>
+
+        <h:messages globalOnly="true" layout="table" style="color:red;" />
+        <h:dataTable value="#{bookController.items}" var="book" border="1" cellpadding="5">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{book.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Title</f:facet>
+                #{book.title}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Author</f:facet>
+                #{book.author}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Edit</f:facet>
+                <h:commandLink value="Edit"
+                               action="#{bookController.prepareEdit(book)}"
+                               immediate="true"
+                               ajax="false"
+                               outcome="book"/>
+            </h:column>
+        </h:dataTable>
+        <h:panelGroup rendered="#{not empty bookController.selected}">
+
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel value="Title:" for="title"/>
+                <h:inputText id="title" value="#{bookController.selected.title}" required="true"/>
+
+                <h:outputLabel value="Author:" for="author"/>
+                <h:inputText id="author" value="#{bookController.selected.author}" required="true"/>
+
+            </h:panelGrid>
+
+            <br/>
+
+            <h:commandButton value="Save"
+                             action="#{bookController.update}"
+                             rendered="#{reservationController.canEdit('book', bookController.selected.id)}"
+                             update="@form"/>
+
+            <h:commandButton value="Release Manually"
+                             action="#{reservationController.release('book', bookController.selected.id)}"
+                             rendered="#{reservationController.canEdit('book', bookController.selected.id)}"
+                             update="@form"/>
+
+            <h:panelGroup rendered="#{!reservationController.canEdit('book', bookController.selected.id)}">
+                <h:outputText value="⛔ Reserved by #{reservationController.getReservedBy('book', bookController.selected.id)}. Please wait." />
+            </h:panelGroup>
+
+            <h:commandButton id="reservationReleaseBtn"
+                             value="Release Reservation"
+                             action="#{reservationController.release('book', bookController.selected.id)}"
+                             style="display:none;" />
+
+            <f:event type="preRenderView"
+                     listener="#{bookController.reserveIfNotReserved}" />
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{empty bookController.selected}">
+            <h:outputText value="⚠ No book selected. Please select a book to edit."/>
+        </h:panelGroup>
+
+    </h:form>
+</h:body>
+</html>

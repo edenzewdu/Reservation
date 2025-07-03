@@ -1,0 +1,38 @@
+
+.addressbook-datatable .ui-datatable-header,
+.addressbook-datatable .ui-datatable-footer {
+    padding: 0.75rem 1rem;
+    background-color: var(--surface-ground); /* Align with theme */
+    border-bottom: 1px solid var(--surface-border);
+    border-top: 1px solid var(--surface-border);
+}
+
+.addressbook-datatable .ui-paginator {
+    padding: 0.5rem;
+}
+
+.addressbook-datatable .ui-column-filter {
+    width: 100%;
+    margin-top: 0.25rem;
+}
+
+.addressbook-datatable .ui-custom-filter .ui-selectonemenu-trigger,
+.addressbook-datatable .ui-custom-filter .ui-selectonemenu-label {
+    font-size: 0.875rem; /* Slightly smaller for filter dropdowns */
+}
+
+.datatable-footer-actions {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    gap: 0.5rem;      /* Space between buttons */
+    align-items: center;
+}
+
+.addressbook-datatable .ui-datatable-thead th {
+    white-space: normal; /* Allow header text to wrap */
+}
+
+.addressbook-datatable .ui-attachment-button i.pi {
+    font-size: 1.1rem;
+    vertical-align: middle;
+}

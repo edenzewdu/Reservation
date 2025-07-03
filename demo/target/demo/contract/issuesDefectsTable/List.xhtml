@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/contractTemplate.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="IssuesDefectsTable"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="IssuesDefectsTableListForm">
+                <p:panel header="IssuesDefectsTable">
+                    <p:toolbar styleClass="p-mb-4">
+
+                        <p:toolbarGroup>
+                            <p:commandButton id="createButton" styleClass="p-mr-2 p-mb-2" icon="pi pi-plus"   value="Create" actionListener="#{issuesDefectsTableController.prepareCreate}" action="Create.xhtml?faces-redirect=true" />
+                            <p:commandButton id="copyButton"  actionListener="#{issuesDefectsTableController.prepareCopy}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-copy" value="Copy" action="Create.xhtml?faces-redirect=true" disabled="#{empty issuesDefectsTableController.multiselectionItems}"/>
+                            <p:commandButton   id="editButton" actionListener="#{issuesDefectsTableController.prepareEdit}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-pencil" value="Edit" action="Edit.xhtml?faces-redirect=true" disabled="#{empty issuesDefectsTableController.multiselectionItems}"/>
+                            <p:commandButton id="deleteButton"   styleClass="p-mr-2 p-mb-2" icon="pi pi-trash"  value="Delete" actionListener="#{issuesDefectsTableController.destroy}" update=":growl,datalist" disabled="#{empty issuesDefectsTableController.multiselectionItems}">
+                                <p:confirm type="popup" header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-arrow-left" styleClass="p-mr-2 p-mb-2" value="Back" onclick="window.history.back()"/>
+                            <p:menuButton styleClass="p-mr-2 p-mb-2" icon="pi pi-list" value="Details">
+                                //Add Something
+                            </p:menuButton>
+                            <p:menuButton styleClass="p-mr-2 p-mb-2" icon="pi pi-list" value="Others">
+                                //Add Something
+                            </p:menuButton>
+                        </p:toolbarGroup>
+
+                        <p:toolbarGroup>
+                            <p:commandButton styleClass="p-mr-2 p-mb-2" icon="pi pi-refresh"   value="Refresh All List"  actionListener="#{issuesDefectsTableController.refreshList}" update="datalist"/>
+                        </p:toolbarGroup> 
+                        <p:toolbarGroup> 
+                            <p:menuButton styleClass="p-mr-2 p-mb-2" icon="pi pi-list" value="Column">
+                                //Add Something
+                            </p:menuButton>
+                        </p:toolbarGroup> 
+
+                        <p:toolbarGroup>
+
+                            <p:menuButton value="Export">
+                                <p:menuitem value="XLS" styleClass="p-mr-2 p-mb-2" icon="pi pi-upload">
+                                    <p:dataExporter type="xls" target="datalist" fileName="#{bundle.ListIssuesDefectsTableTitle}"/>
+                                </p:menuitem>
+                                <p:menuitem value="PDF" styleClass="p-mr-2 p-mb-2">
+                                    <p:dataExporter type="pdf" target="datalist" fileName="#{bundle.ListIssuesDefectsTableTitle}"/>
+                                </p:menuitem>
+                                <p:menuitem value="CSV" styleClass="p-mr-2 p-mb-2">
+                                    <p:dataExporter type="csv" target="datalist" fileName="#{bundle.ListIssuesDefectsTableTitle}" />
+                                </p:menuitem>
+                                <p:menuitem value="XML" styleClass="p-mr-2 p-mb-2">
+                                    <p:dataExporter type="xml" target="datalist" fileName="#{bundle.ListIssuesDefectsTableTitle}"/>
+                                </p:menuitem>
+                            </p:menuButton>
+                        </p:toolbarGroup> 
+                    </p:toolbar>
+                    <br/>
+                    <p:dataTable id="datalist" value="#{issuesDefectsTableController.items}" var="item"
+                                 selectionPageOnly="false" selection="#{issuesDefectsTableController.multiselectionItems}"
+                                 paginator="true"  tableStyle="width:auto"
+                                 paginatorPosition="bottom"
+                                 reflow="true"
+                                 styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines"
+                                 rowSelectMode="none" resizableColumns="true" resizeMode="expand"
+                                 rowKey="#{item.id}"
+                                 rows="10" widgetVar="widgetItem" filteredValue="#{issuesDefectsTableController.filteredValues}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelectCheckbox"   update="@form IssuesDefectsTableListForm:createButton IssuesDefectsTableListForm:copyButton IssuesDefectsTableListForm:editButton IssuesDefectsTableListForm:deleteButton"/>
+                        <p:ajax event="rowUnselectCheckbox" update="@form IssuesDefectsTableListForm:createButton IssuesDefectsTableListForm:copyButton IssuesDefectsTableListForm:editButton IssuesDefectsTableListForm:deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width: 16px; text-align: center"/>
+                        <p:column  sortBy="#{item.id}"  filterBy="#{item.id}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.contractId}"  filterBy="#{item.contractId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="contractId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractId}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.issueCategory}"  filterBy="#{item.issueCategory}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="issueCategory"/>
+                            </f:facet>
+                            <h:outputText value="#{item.issueCategory}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.issueDescription}"  filterBy="#{item.issueDescription}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="issueDescription"/>
+                            </f:facet>
+                            <h:outputText value="#{item.issueDescription}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.reportedByPartyId}"  filterBy="#{item.reportedByPartyId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="reportedByPartyId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.reportedByPartyId}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.reportedDate}"  filterBy="#{item.reportedDate}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="reportedDate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.reportedDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.severity}"  filterBy="#{item.severity}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="severity"/>
+                            </f:facet>
+                            <h:outputText value="#{item.severity}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.impact}"  filterBy="#{item.impact}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="impact"/>
+                            </f:facet>
+                            <h:outputText value="#{item.impact}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.status}"  filterBy="#{item.status}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="status"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.assignedToUserId}"  filterBy="#{item.assignedToUserId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="assignedToUserId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.assignedToUserId}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.resolutionDetails}"  filterBy="#{item.resolutionDetails}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="resolutionDetails"/>
+                            </f:facet>
+                            <h:outputText value="#{item.resolutionDetails}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.resolutionDate}"  filterBy="#{item.resolutionDate}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="resolutionDate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.resolutionDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.closureDate}"  filterBy="#{item.closureDate}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="closureDate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.closureDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.clientAcceptanceDocId}"  filterBy="#{item.clientAcceptanceDocId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="clientAcceptanceDocId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.clientAcceptanceDocId}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.createdAt}"  filterBy="#{item.createdAt}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="createdAt"/>
+                            </f:facet>
+                            <h:outputText value="#{item.createdAt}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.updatedAt}"  filterBy="#{item.updatedAt}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="updatedAt"/>
+                            </f:facet>
+                            <h:outputText value="#{item.updatedAt}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  sortBy="#{item.warrantyId}"  filterBy="#{item.warrantyId}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="warrantyId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.warrantyId}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:contextMenu for="datalist">
+                        <p:menuitem  id="createButton1" styleClass="p-mr-2 p-mb-2" icon="pi pi-plus"   value="Create" actionListener="#{issuesDefectsTableController.prepareCreate}" action="Create.xhtml?faces-redirect=true" />
+                        <p:menuitem  id="copyButton1" actionListener="#{issuesDefectsTableController.prepareCopy}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-copy" value="Copy" action="Create.xhtml?faces-redirect=true" disabled="#{empty issuesDefectsTableController.multiselectionItems}"/>
+                        <p:menuitem id="editButton1"  actionListener="#{issuesDefectsTableController.prepareEdit}"   styleClass="p-mr-2 p-mb-2" icon="pi pi-pencil" value="Edit" action="Edit.xhtml?faces-redirect=true" disabled="#{empty issuesDefectsTableController.multiselectionItems}"/>
+                        <p:menuitem id="deleteButton1"  styleClass="p-mr-2 p-mb-2" icon="pi pi-trash"  value="Delete" actionListener="#{issuesDefectsTableController.destroy}" update=":growl,datalist" disabled="#{empty issuesDefectsTableController.multiselectionItems}">
+                            <p:confirm type="popup" header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
+                        </p:menuitem>
+                        <p:submenu  icon="pi pi-list" label="Details">
+                        </p:submenu>
+
+                    </p:contextMenu>
+                    <p:confirmPopup global="true">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
+                    </p:confirmPopup>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

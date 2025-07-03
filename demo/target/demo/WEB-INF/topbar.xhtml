@@ -1,0 +1,1265 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pm="http://primefaces.org/mirage"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <style>
+
+        @media (max-width: 768px) {
+            .home-form {
+                display: none !important;
+            }
+
+            .zoomout {
+                zoom: 0.50;
+            }
+        }
+
+        .zoomout {
+            zoom: 0.95;
+        }
+
+        .reminder {
+            width: 250px;
+            background-color: #e8f1f8;
+            padding: 100px;
+            border: 1px solid #d0d7de;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .reminder-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .reminder-count {
+            font-weight: bold;
+        }
+
+        .dismiss-all {
+            font-size: 12px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .reminder-item {
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #d0d7de;
+        }
+
+        .reminder-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .subject {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .time-range {
+            color: #555;
+        }
+
+        .meeting-link {
+            color: #0066cc;
+            font-size: 12px;
+            text-decoration: none;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .time-left {
+            color: #888;
+            font-size: 12px;
+            align-self: flex-end;
+        }
+
+        .reminder-actions {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .reminder-timing {
+            font-size: 12px;
+            padding: 2px;
+        }
+
+        .dismiss, .snooze {
+            font-size: 12px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .dismiss:hover, .snooze:hover {
+            background-color: #d0d0d0;
+        }
+
+        .show-more {
+            display: block;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #0066cc;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .dropbutton {
+            background-color: #f1f1f1;
+            color: black;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            text-align: left;
+            font-size: small;
+        }
+
+        .dropbutton2 {
+            background-color: #f1f1f1;
+            color: black;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            text-align: left;
+            font-size: small;
+
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown2 {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            place-content: stretch;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            text-align: left;
+            font-size: small;
+        }
+
+
+        .dropdown-content2 {
+            display: none;
+            position: relative;
+            place-content: stretch;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            text-align: left;
+            font-size: small;
+        }
+
+        .dropdown:hover .dropdown-content {
+            font-size: small;
+            font-weight: bold;
+            display: block;
+        }
+
+        .dropdown2:hover .dropdown-content2 {
+            font-size: small;
+            font-weight: bold;
+            display: block;
+        }
+
+        .dropdown:hover .dropbutton {
+            font-size: small;
+            background-color: #f1f1f1;
+        }
+
+        .dropdown2:hover .dropbutton2 {
+            font-size: small;
+            background-color: #f1f1f1;
+        }
+
+        .subMenuStyle {
+            text-align: left;
+            font-size: small;
+            width: fit-content;
+            align-items: flex-end;
+            background-color: #ccccff;
+        }
+
+        .no-border-submenu .ui-menu-child {
+            border: none;
+        }
+
+        .topbar-icon pi pi-bell .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 50%;
+            background: red;
+            color: white;
+        }
+
+        .dialog-container {
+            display: none;
+            position: fixed;
+            top: 335px;
+            left: 1450px;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 450px;
+            max-width: 90%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        .dialog-container.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .dialog-header {
+            background-color: #2a6ebd; /* Blue color for header */
+            color: white; /* White text */
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Close button styling */
+        .close-button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close-button:hover {
+            color: #d4d4d4;
+        }
+
+        .dialog-container {
+            position: fixed; /* Ensures the dialog stays in place relative to the viewport */
+            top: 32%; /* Center vertically */
+            left: 83%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Offset by half the height and width to center */
+            z-index: 1000; /* Ensure it appears above other elements */
+            width: 90%; /* Optional: Adjust width to fit the screen */
+            max-width: 500px; /* Optional: Maximum width for responsiveness */
+            background-color: #fff; /* Background color */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add some shadow for a popup effect */
+            border-radius: 8px; /* Optional: Rounded corners */
+            overflow: hidden; /* Prevent content overflow */
+        }
+
+        /* Notification items styling */
+        .dialog-content .menu-text {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dialog-content .menu-text:last-child {
+            border-bottom: none;
+        }
+
+        /* Link styling within notifications */
+        .dialog-content .card p {
+            margin: 0;
+            font-weight: bold;
+            color: #004085;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .dialog-content .card p:hover {
+            color: #0056b3;
+        }
+
+        /* Divider styling */
+        .dialog-content p:divider {
+            margin: 10px 0;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .notification-list {
+            max-height: 500px; /* Adjust the height as needed */
+            overflow-y: auto;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        #notificationList {
+            display: none; /* Initially hidden - controlled by JS */
+            position: absolute;
+            top: 100%; /* Position below the trigger */
+            right: 0; /* Align to the right */
+            width: 420px; /* As specified in your HTML */
+            background-color: #ffffff;
+            border: 1px solid #ced4da; /* Softer border color */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            z-index: 1000; /* Ensure it's above other content */
+            list-style: none;
+            padding: 0;
+            margin-top: 5px; /* Small gap from the top bar */
+            max-height: 450px; /* Limit height and allow scrolling */
+            overflow-y: auto; /* Enable vertical scrollbar when needed */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        #notificationForm .dialog-header {
+            padding: 12px 15px;
+            font-size: 16px;
+            font-weight: 600; /* Slightly less bold */
+            color: #343a40;
+            border-bottom: 1px solid #e9ecef; /* Lighter border */
+            background-color: #f8f9fa; /* Slight background tint */
+            position: sticky; /* Keep header visible when scrolling */
+            top: 0;
+            z-index: 1; /* Ensure header stays above scrolled content */
+        }
+
+        #notificationList .layout-submenu-item {
+            /* No border here if using p:divider */
+            /* border-bottom: 1px solid #e9ecef; */ /* Use if not using p:divider */
+            margin: 0;
+            padding: 0; /* Padding handled by inner div */
+        }
+
+        #notificationList .layout-submenu-item:last-child {
+            /* Remove border from last item if using border instead of p:divider */
+            /* border-bottom: none; */
+        }
+
+        /* Add hover effect to list items */
+        #notificationList .layout-submenu-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Inner content div for padding */
+        #notificationList .menu-text {
+            padding: 15px;
+            position: relative; /* For absolute positioning of date if needed */
+        }
+
+        /* Status text */
+        .notification-status {
+            font-weight: bold;
+            font-size: 0.85em;
+            color: #6c757d; /* Grey color for status */
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Description paragraph/link */
+        .notification-description {
+            font-size: 1em; /* Base font size */
+            font-weight: 500;
+            color: #212529;
+            margin: 0 0 10px 0; /* Space below description */
+        }
+
+        .notification-description .ui-link { /* Target PrimeFaces link */
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+
+        }
+
+        .notification-description .ui-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Date text */
+        .notification-date {
+            font-size: 0.8em;
+            color: #6c757d;
+            text-align: right; /* Align date to the right */
+            display: block; /* Ensure it takes its own line */
+            margin-top: -10px; /* Adjust slightly upwards if needed */
+            margin-bottom: 10px;
+        }
+
+        /* Actions area (buttons) */
+        .notification-actions {
+            display: flex; /* Use flexbox for button alignment */
+            flex-wrap: wrap; /* Allow buttons to wrap on small widths */
+            gap: 8px; /* Space between buttons */
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e9ecef; /* Separator line */
+        }
+
+        /* Style action buttons */
+        .notification-actions .ui-button {
+            font-size: 0.9em;
+            padding: 4px 8px; /* Smaller padding for actions */
+        }
+
+        /* Divider */
+        #notificationForm .ui-divider {
+            margin: 0; /* Remove default divider margins */
+            border-color: #e9ecef; /* Match other border colors */
+        }
+
+        #notificationForm .ui-divider .ui-divider-content {
+            padding: 0; /* Remove padding if divider has content alignment */
+        }
+
+
+        /* "Load More" button container */
+        .load-more-container {
+            text-align: center;
+            padding: 10px 0; /* Padding top/bottom */
+            border-top: 1px solid #e9ecef;
+        }
+
+        /* Style for the "Load More" button itself */
+        .load-more-container .ui-button {
+            font-size: 0.9em;
+        }
+
+        /* "No new notifications" message */
+        .no-notifications-message {
+            padding: 25px 15px;
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        /* "Show All" link */
+        .show-all-link .ui-link { /* Target PrimeFaces link */
+            display: block;
+            text-align: center;
+            padding: 12px 15px;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+            border-top: 1px solid #e9ecef;
+            background-color: #f8f9fa;
+            transition: background-color 0.2s ease;
+        }
+
+        .show-all-link .ui-link:hover {
+            background-color: #e9ecef;
+            text-decoration: none;
+        }
+
+        .topbar-item .ui-badge {
+            /* PrimeFaces default styles are usually okay, adjust if needed */
+            font-size: 0.8em;
+            line-height: 1.5; /* Adjust for better vertical centering */
+        }
+    </style>
+
+    <h:outputScript target="head">
+
+        var userIdentifierId = "#{loginView.authenticatedUser.identifierId}";
+        function showNotificationPanel() {
+        PF('notificationDialog').show();
+        document.getElementById('notificationSound').play();
+
+        }
+
+
+        let isDialogOpen = false;
+
+        // Retrieve the host from systemConfigurationsController
+        var host = "#{systemConfigurationsController.host}";
+        var con = "#{systemConfigurationsController.ssh}"
+        var ws = null;
+        if(con === '1'){
+        ws = new WebSocket("wss://" + host + "/savvy/notifications");
+        }else if (con === null || con === undefined || con.trim() === '') {
+        console.error("Configuration 'ssh' is null, undefined, or empty. Defaulting to ws://");
+        ws = new WebSocket("ws://" + host + "/savvy/notifications");
+        } else {
+        ws = new WebSocket("ws://" + host + "/savvy/notifications");
+        }
+        ws.onopen = function() {
+        console.log("WebSocket connection opened for notification");
+        };
+        var notificationListOpen = false;
+        ws.onmessage = function (event) {
+        var message = event.data;
+
+        if (!notificationListOpen) {
+        if (message === userIdentifierId) {
+        console.log("Notification received for user: " + userIdentifierId);
+        showDialog();
+
+        }
+        }else{
+        //Update dialog content
+        notificationPopup();
+        }
+        };
+
+
+        let isLattestNotificationFound = false;
+        function showDialog() {
+
+        if (isDialogOpen){
+        updateDialogData();
+        if (isLattestNotificationFound) {
+        playNotificationSound();
+        isLattestNotificationFound = false; // Reset after handling
+        }
+
+        }else{
+        const dialog = document.getElementById('notificationDialog');
+
+        // Display the dialog and save its visibility state in local storage
+        dialog.style.display = 'block';
+        dialog.classList.add('show');
+        notificationPopup(); // Your function to load notification content
+        playNotificationSound();
+        console.log("Notification Dialog POPs");
+
+        // Set visibility state in local storage to persist across refreshes
+        localStorage.setItem('notificationDialogVisible', 'true');
+        isDialogOpen = true;
+        }
+        }
+
+        function showDialog1() {
+        if (isDialogOpen)
+        updateDialogDate();
+        return;
+        const dialog = document.getElementById('notificationDialog1');
+
+        // Display the dialog and save its visibility state in local storage
+        dialog.style.display = 'block';
+        dialog.classList.add('show');
+        notificationPopup(); // Your function to load notification content
+        playNotificationSound();
+        console.log("Notification Dialog POPs for notification 1");
+
+        // Set visibility state in local storage to persist across refreshes
+        localStorage.setItem('notificationDialogVisible', 'true');
+        isDialogOpen = true;
+        }
+
+        function closeDialog() {
+        const dialog = document.getElementById('notificationDialog');
+        // Remove 'show' class to trigger closing animation
+        dialog.classList.remove('show');
+
+        // Hide dialog after animation and update local storage
+        setTimeout(() => {
+        dialog.style.display = 'none';
+        localStorage.setItem('notificationDialogVisible', 'false');
+        }, 500); // Adjust delay to match your animation duration
+
+        //Run a remote command to clear the notification popup list
+
+
+        }
+
+        function closeDialog1() {
+        const dialog = document.getElementById('notificationDialog1');
+        }
+
+
+        // Check local storage on page load to determine initial dialog visibility
+        window.addEventListener('load', function() {
+        const isVisible = localStorage.getItem('notificationDialogVisible');
+
+        // Show the dialog if it was previously visible
+        if (isVisible === 'true') {
+        showDialog();
+        }
+        });
+
+        function playNotificationSound() {
+        var audio = new Audio("http://" + host + "/savvy/resources/sound/level-up-191997.mp3");
+        audio.play().then(() => {
+        console.log("Notification Sound Played");
+        }).catch(error => {
+        console.error("Error playing audio:", error);
+        });
+        }
+
+        function isNotificationListOpen() {
+        return document.getElementById("notificationList").classList.contains("open");
+        }
+
+        function toggleNotifications() {
+        var notificationList = document.getElementById("notificationList");
+        notificationList.classList.toggle("open");
+        notificationListOpen = notificationList.classList.contains("open");
+        if (notificationListOpen) {
+        // closeDialog(); // Close the reminder dialog if the notification list is opened
+        // console.log("Notification Dialog Close");
+        }
+        }
+
+
+        //Drag Functionality
+
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        function startDrag(event) {
+        const dialog = document.getElementById("notificationDialog");
+
+        isDragging = true;
+        offsetX = event.clientX - dialog.offsetLeft;
+        offsetY = event.clientY - dialog.offsetTop;
+
+        document.addEventListener("mousemove", drag);
+        document.addEventListener("mouseup", stopDrag);
+        }
+
+        function drag(event) {
+        if (isDragging) {
+        const dialog = document.getElementById("notificationDialog");
+
+        dialog.style.position = "absolute";
+        dialog.style.left = (event.clientX - offsetX) + "px";
+        dialog.style.top = (event.clientY - offsetY) + "px";
+        }
+        }
+
+        function stopDrag() {
+        isDragging = false;
+        document.removeEventListener("mousemove", drag);
+        document.removeEventListener("mouseup", stopDrag);
+        }
+
+        let lastActivity = new Date().getTime();
+        let pollStopped = false;
+
+        // Reset lastActivity timestamp on user actions
+        function resetActivity() {
+        lastActivity = new Date().getTime();
+        if (pollStopped) {
+        PF('pollWidget').start(); // Start polling again if it was stopped
+        console.log("Poll Started after user interaction");
+        pollStopped = false;
+        }
+        }
+
+        // Track user interactions
+        window.onclick = resetActivity;
+        window.onkeypress = resetActivity;
+        window.onmousemove = resetActivity;
+
+        function checkClientActivity() {
+        const now = new Date().getTime();
+        const inactivityLimit = 10 * 60 * 1000; // 10 minutes
+
+        if (now - lastActivity > inactivityLimit) {
+        PF('pollWidget').stop(); // Stop polling
+        console.log("Poll stopped due to user inactivity");
+        pollStopped = true;
+        }
+        }
+
+        function showNotificationPanel1() {
+        var list = document.getElementById('notificationList');
+        if (list) {
+        list.style.display = 'block';
+        console.log("Notification panel shown.");
+        } else {
+        console.error("Element with ID 'notificationList' not found for showing.");
+        }
+        }
+
+        function closeNotificationPanel() {
+        var list = document.getElementById('notificationList');
+        if (list) {
+        list.style.display = 'none';
+        console.log("Notification panel hidden.");
+        } else {
+        console.error("Element with ID 'notificationList' not found for closing.");
+        }
+        }
+
+        // Optional: Close dropdown if clicking outside
+        document.addEventListener('click', function(event) {
+        var topbarItem = event.target.closest('.topbar-item');
+        var list = document.getElementById('notificationList');
+        if (list &amp;&amp; list.style.display === 'block' &amp;&amp; !topbarItem) {
+        // Only close if the click is outside the notification item AND the list is visible
+        closeNotificationPanel();
+        }
+        }, true); // Use capture phase might help sometimes
+
+    </h:outputScript>
+
+    <h:outputStylesheet name="mobilePC.css" library="css"/>
+
+    <div class="loading-container" id="loadingContainer">
+        <div class="loading-icon"></div>
+    </div>
+
+    <div class="layout-topbar" >
+        <div class="layout-topbar-wrapper">
+            <div class="layout-topbar-left">
+                <h:form id="HomeForm" styleClass="home-form">
+                    <p:remoteCommand name="tRC" action="#{linkLabelRelationController.recieveLink}"/>
+                    <h:panelGrid styleClass="ui-noborder" columns="3" cellpadding="5" cellspacing="1">
+                        <h:panelGroup>
+                            <p:spacer width="50px"/>
+                            <p:commandButton action="/index.xhtml?faces-redirect=true"
+                                             id="home" value="Home" icon="pi pi-home" styleClass="ui-button-outlined"/>
+
+
+                            <style>
+                                .panel {
+                                    border: none;
+                                    background-color: transparent;
+                                }
+
+                                .table-borderless {
+                                    border: none;
+                                    background-color: transparent;
+                                }
+
+                                .table-borderless td, .table-borderless th {
+                                    border: none;
+                                }
+                            </style>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <p:commandButton id="env" value="Environment" icon="pi pi-angle-down"
+                                             styleClass="ui-button-outlined"/>
+                            <p:tieredMenu overlay="true" trigger="env" my="left top" at="left bottom"
+                                          style="width:300px" widgetVar="tieredMenuBar1"
+                                          styleClass="custom-tiered-menu">
+                                <div style="max-height: 200px; overflow-y: auto;">
+                                    <c:forEach var="item" items="#{loginView.enviromentSystemCode}">
+                                        <p:menuitem
+                                                rendered="#{loginView.authenticatedUser.superUser.toString() eq '0'}"
+                                                icon="pi pi-#{loginView.iconForEnviroment(item)}"
+                                                action="#{loginView.forwardToSystemCodesLink(item)}" value="#{
+                                                              (item eq '43E') ? 'Requisition' :
+                                                              (item eq '01') ? 'Address Book' :
+                                                              (item eq '90') ? 'CRM' :
+                                                              (item eq '43') ? 'Procurement' :
+                                                              (item eq '40') ? 'Inventory' :
+                                                              (item eq '09') ? 'General Accounting' :
+                                                              (item eq '08') ? 'Human Capital Management' :
+                                                              (item eq '46') ? 'Warehouse' :
+                                                              (item eq '42') ? 'Sales' :
+                                                              (item eq '00A') ? 'Admin' :
+                                                              (item eq 'CD') ? 'Calendar':
+                                                              (item eq '00') ? 'Tax Processing':
+                                                              (item eq '49') ? 'Transportation':
+                                                              (item eq '07') ? 'Payroll':null}"
+                                                actionListener="#{loginView.setLattestSystemCode(
+                                                                      (item eq '43E') ? 'requisitionTemplate' :
+                                                                      (item eq '43') ? 'procurementTemplate' :
+                                                                      (item eq '01') ? 'addressBookTemplate' :
+                                                                      (item eq '90') ? 'crmTemplate' :
+                                                                      (item eq '40') ? 'inventoryTemplate' :
+                                                                      (item eq '09') ? 'generalAccountingTemplate' :
+                                                                      (item eq '08') ? 'hrTemplate' :
+                                                                      (item eq '46') ? 'wareHouseTemplate' :
+                                                                      (item eq '42') ? 'salesOrderTemplate' :
+                                                                      (item eq '00A') ? 'adminTemplate' :
+                                                                      (item eq 'CD') ? 'calendarTemplate':
+                                                                      (item eq '00') ? 'fundamentalsTemplate':
+                                                                      (item eq '49') ? 'transportationTemplate':
+                                                                      (item eq '07') ? 'payrollTemplate':null)}"
+
+                                        />
+
+                                        <p:divider/>
+
+                                    </c:forEach>
+                                </div>
+                            </p:tieredMenu>
+                        </h:panelGroup>
+
+                        <h:panelGroup>
+                            <c:set var="isAuthunticated"
+                                   value="#{linkHistory.linkLabelList != null and linkHistory.linkLabelList.size() > 0}"/>
+                            <p:commandButton id="backButton" value="History" type="button" icon="pi pi-history"
+                                             rendered="#{isAuthunticated}" styleClass="ui-button-outlined"
+                                             update="@form hist"
+                                             onclick="PF('pollHistory').start()"/>
+
+                            <p:poll id="hist" widgetVar="pollHistory" autoStart="false" interval="1"
+                                    update="historyDatalist"/>
+
+                            <p:overlayPanel id="historyOver" for="backButton" widgetVar="historyOverPanel"
+                                            rendered="#{isAuthunticated}"
+                                            onHide="PF('pollHistory').stop()">
+                                <h:panelGroup>
+                                    <p:dataTable id="historyDatalist" value="#{linkHistory.linkLabelList}" var="item"
+                                                 selectionMode="single"
+                                                 reflow="true" rowKey="#{item.id}"
+                                                 tableStyle="width:auto"
+                                                 styleClass="table-borderless ui-datatable-striped ui-datatable-sm"
+                                                 style="font-family: 'Goudy Old Style', sans-serif;"
+                                                 scrollable="true" scrollHeight="150" scrollWidth="175">
+                                        <p:column headerText="Previous Links">
+                                            <p:commandLink value="#{item.linkLabel}"
+                                                           action="#{linkHistory.linkClick(item)}"
+                                                           style="font-family: 'Goudy Old Style', sans-serif;"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGroup>
+                            </p:overlayPanel>
+
+
+                        </h:panelGroup>
+
+                    </h:panelGrid>
+                </h:form>
+
+                <div class="layout-topbar-logo-wrapper">
+                    <a href="#" class="sidebar-menu-button">
+                        <i class="pi pi-bars"/>
+                    </a>
+                </div>
+                <div class="layout-topbar-logo-wrapper">
+
+                </div>
+                <div class="layout-topbar-logo-wrapper">
+                    <a href="/savvy/index.xhtml" class="layout-topbar-logo">
+                        <p:graphicImage name="images/gg.png" library="mirage-layout"/>
+                    </a>
+                </div>
+                <a href="#" class="topbar-menu-mobile-button">
+                    <i class="pi pi-ellipsis-v"/>
+                </a>
+
+
+            </div>
+            <!--            <div class="center-element-class">-->
+
+            <!--            </div>-->
+            <div class="layout-topbar-right mobile-only" id="rh" style="position: relative; align-content: center">
+                <p:spacer width="20px"/>
+            </div>
+            <div class="layout-topbar-right mobile-only" id="rh1" style="position: relative; align-content: center">
+            </div>
+            <div class="layout-topbar-right mobile-only" id="rh2" style="position: relative; align-content: center">
+                <p:spacer width="20px"/>
+            </div>
+            <div class="layout-topbar-right" id="dialog1" style="position: relative; align-content: end">
+                <ul class="layout-topbar-actions">
+                    <li class="topbar-item">
+                        <a href="#" onclick="loadNotificationsCommand(); return false;" title="Notifications">
+                            <h:form id="badgeForm">
+                                <span class="ui-overlay-badge topbar-icon">
+                                    <i class="topbar-icon pi pi-bell"/>
+                                    <p:outputLabel rendered="#{notificationAndMessage.newNotificationCount > 0}">
+                                        <span class="ui-badge">
+                                            <h:outputText value="#{notificationAndMessage.newNotificationCount}"/>
+                                        </span>
+                                    </p:outputLabel>
+                                </span>
+                            </h:form>
+                        </a>
+                        <ul id="notificationList" class="notification-list" style="display: none;">
+                            <h:form id="notificationForm">
+                                <div class="dialog-header">
+                                    Notifications <p:spacer/>
+                                    <p:commandButton value="Dismiss All" update=":notificationForm :badgeForm :growl"
+                                                     actionListener="#{notificationAndMessage.dismissAllAssignedToUserNotf()}"/>
+                                </div>
+
+                                <c:if test="#{notificationAndMessage.initialLoadDone}">
+                                    <c:forEach var="item" items="#{notificationAndMessage.displayedNotificationList}">
+                                        <li class="layout-submenu-item"> <!-- No style needed here -->
+                                            <div class="menu-text">
+                                                <!-- ADDED styleClass -->
+                                                <h:outputText styleClass="notification-status"
+                                                              value="#{item.status}"/><br/>
+                                                <!-- ADDED styleClass -->
+                                                <p class="notification-description">
+                                                    <p:commandLink value="#{item.description}"
+                                                                   update=":badgeForm :growl"
+                                                                   action="#{linkLabelRelationController.forwarToLink(item.link.links,item.tableName,item.tableId)}"
+                                                                   oncomplete="closeNotificationPanel()"/>
+                                                </p>
+                                                <!-- Wrap date in its own paragraph or span with styleClass -->
+                                                <p>
+                                                    <h:outputText styleClass="notification-date"
+                                                                  value="#{item.dateSent}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm"/>
+                                                    </h:outputText>
+                                                </p>
+                                                <!-- ADDED styleClass -->
+                                                <span class="notification-actions">
+                                <c:forEach var="item1"
+                                           items="#{notificationAndMessage.getNotificationActions(item.tableName)}">
+                                    <p:commandButton update=":notificationForm :badgeForm :growl"
+                                                     value="#{item1.action}"
+                                                     actionListener="#{notificationAndMessage.applyNotificationAction(item1,item)}"
+                                                     process="@this"/>
+                                    <!-- Removed p:spacer, using gap in flexbox now -->
+                                </c:forEach>
+                                                    <!-- Removed p:spacer -->
+                                                    <p:commandButton update=":notificationForm :badgeForm :growl"
+                                                                     value="Dismiss" icon="pi pi-times"
+                                                                     actionListener="#{notificationAndMessage.dismisNotification(item)}"
+                                                                     process="@this"/>
+                            </span>
+                                            </div>
+                                        </li>
+                                        <p:divider/> <!-- Keep divider -->
+                                    </c:forEach>
+
+                                    <!-- "Load More" Button Container -->
+                                    <!-- ADDED styleClass and removed inline style -->
+                                    <div class="load-more-container"
+                                         style="#{notificationAndMessage.hasMoreNotifications ? '' : 'display: none;'}">
+                                        <p:commandButton value="Load More Notifications"
+                                                         action="#{notificationAndMessage.loadMoreNotifications}"
+                                                         update="@form" process="@this"
+                                                         styleClass="ui-button-secondary" icon="pi pi-arrow-down"/>
+                                    </div>
+
+                                    <!-- Message if list is empty *after* initial load -->
+                                    <!-- ADDED styleClass -->
+                                    <c:if test="${empty notificationAndMessage.displayedNotificationList}">
+                                        <h:outputText styleClass="no-notifications-message"
+                                                      value="No new notifications."/>
+                                    </c:if>
+                                </c:if> <!-- End initialLoadDone check -->
+
+                                <br/> <!-- Keep br if needed for spacing -->
+                                <!-- ADDED styleClass for the wrapper -->
+                                <div class="show-all-link">
+                                    <p:commandLink value="Show All"
+                                                   action="#{uRLBean.encryptedLink('/Notifications.xhtml')}"
+                                                   rendered="#{notificationAndMessage.newNotificationCount > 0}"/>
+                                </div>
+                            </h:form>
+                        </ul>
+                    </li>
+
+                    <!-- Remember to include your remote command, growl, loading dialog, and JS functions elsewhere -->
+                    <!-- ... -->
+                    <h:form>
+                        <p:remoteCommand name="loadNotificationsCommand"
+                                         actionListener="#{notificationAndMessage.loadInitialNotifications()}"
+                                         update=":notificationForm :badgeForm"
+                                         process="@this"
+                                         onstart="PF('loadingDialog').show(); console.log('Starting notification load...');"
+                                         oncomplete="PF('loadingDialog').hide(); showNotificationPanel1(); console.log('Notification load complete.');"
+                                         onerror="PF('loadingDialog').hide(); console.error('Error loading notifications.'); alert('Error loading notifications.');"/>
+                    </h:form>
+                    <p:dialog widgetVar="loadingDialog" modal="true" draggable="false" closable="false"
+                              resizable="false" showHeader="false">
+                        <i class="pi pi-spin pi-spinner" style="font-size: 3em;"></i> Loading...
+                    </p:dialog>
+                    <p:spacer width="20px"/>
+                    <li class="topbar-item">
+                        <span class="profile-image-wrapper">
+                            <p:graphicImage value="#{companyLogoDynamicController.imagePath}" alt="Image" width="70"
+                                            height="55"/>
+                        </span>
+                        <p:spacer width="50px"/>
+                        <span class="profile-info-wrapper">
+
+                            <span>#{companyLogoDynamicController.companyLogoDynamicForLogo().companyAddress.alphaName}</span>
+                        </span>
+                        <p:spacer width="100px"/>
+
+                    </li>
+
+
+                    <li class="topbar-item profile-item">
+                        <a href="#">
+
+                            <h5>#{loginView.authenticatedUser.addressNumber.alphaName}</h5>
+                        </a>
+                        <ul class="profile-item-submenu">
+                            <li class="profile-submenu-header">
+
+                                <div class="profile">
+                                    <p:graphicImage value="#{companyLogoDynamicController.imagePath}" alt="Image"
+                                                    width="70" height="55"/>
+                                    <h1>#{companyLogoDynamicController.companyLogoDynamicForLogo().companyAddress.alphaName}</h1>
+                                    <span></span>
+                                </div>
+                            </li>
+
+                            <li class="layout-submenu-footer">
+                                <h:form> <p:commandButton styleClass="mr-2 mb-2" action="#{loginView.logout()}"
+                                                          value="Sign out"
+                                                          class="signout-button"></p:commandButton><br/><br/>
+                                    <p:commandLink styleClass="mr-2 mb-2"
+                                                   action="#{uRLBean.encryptedLink('/changePassword1.xhtml')}"
+                                                   value="Change Password"
+                                                   class="signout-button"></p:commandLink><br/>
+                                    <h:panelGrid columns="2" styleClass="ui-noborder">
+                                        <h:outputText value="Language"/>
+                                        <p:selectOneMenu value="#{dataDictionaryModule1.language}">
+                                            <f:selectItem itemLabel="English" itemValue="EN"/>
+                                            <f:selectItem itemLabel="Amharic" itemValue="AM"/>
+                                            <p:ajax event="valueChange" oncomplete="window.location.reload();"/>
+
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+
+                                </h:form>
+
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+
+                        <h:form>
+                            <i class="topbar-icon pi pi-calendar"
+                               style="font-size: 20px; cursor: pointer;"
+                               title="Open the calendar"
+                               onclick="PF('taskcal').show()">
+                            </i>
+
+                        </h:form>
+                    </li>
+                </ul>
+
+                <ul class="profile-mobile-wrapper">
+
+                    <li class="topbar-item profile-item">
+                        <a href="#">
+
+                            <h5>#{loginView.authenticatedUser.addressNumber.alphaName}</h5>
+
+
+                        </a>
+                        <ul>
+                            <li class="profile-submenu-header">
+                                <div class="performance">
+                                    <span>Weekly Performance</span>
+
+                                </div>
+                                <div class="profile">
+                                    <p:graphicImage value="#{companyLogoDynamicController.imagePath}" alt="Image"
+                                                    width="70" height="55"/>
+                                    <h1>#{companyLogoDynamicController.companyLogoDynamicForLogo().companyAddress.alphaName}</h1>
+
+                                </div>
+                            </li>
+
+                            <li class="layout-submenu-footer">
+                                <h:form> <p:commandButton action="#{loginView.logout()}" value="Sign out"
+                                                          styleClass="mr-2 mb-2"
+                                                          class="signout-button"></p:commandButton>
+                                    <p:commandButton styleClass="mr-2 mb-2"
+                                                     action="#{uRLBean.encryptedLink('/changePassword.xhtml')}"
+                                                     value="Change Password"
+                                                     class="signout-button"></p:commandButton>
+                                </h:form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <h:form style="zoom: 0.75">
+                <p:remoteCommand name="notificationPopup" update="notificationPopupForm reminderSizeForm"/>
+                <p:remoteCommand name="updateDialogData" actionListener="#{notificationAndMessage.getReminders()}"
+                                 update="notificationPopupForm reminderSizeForm"/>
+
+
+            </h:form>
+
+
+            <div style="width: 300px;zoom: 0.75; display: none;" class="dialog-container" id="notificationDialog">
+                <!-- Dialog Header with Better Contrast -->
+                <div class="dialog-header" onmousedown="startDrag(event)"
+                     style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background-color: #333; color: #fff; border-bottom: 1px solid #444;">
+                    <h:form id="reminderSizeForm">
+                        <span style="font-weight: bold; font-size: 15px;">Reminders </span>
+                        <h:outputText id="reminderSizeValue"
+                                      value="(#{notificationAndMessage.reminderSize})"
+                                      style="font-size: 13px; color: #ccc;"/>
+
+                    </h:form>
+                    <button class="close-button" onclick="closeDialog()"
+                            style="border: none; background: none; font-size: 18px; color: #fff; cursor: pointer;">×
+                    </button>
+                </div>
+
+                <!-- Scrollable Content Area with Compact Layout -->
+                <div class="dialog-content" id="dialogContent"
+                     style="max-height: 400px; overflow-y: auto; padding: 8px;">
+                    <h:form id="notificationPopupForm">
+                        <c:forEach var="itemR" items="#{notificationAndMessage.reminders}">
+                            <div class="reminder-content"
+                                 style="padding: 8px; border-bottom: 1px solid #ddd; margin-bottom: 5px;">
+                                <!-- Reminder Subject -->
+                                <span class="subject">
+                        <p:commandLink value="#{itemR.subject}"
+                                       style="font-size: 13px; font-weight: bold; color: #0056b3; cursor: pointer;"
+                                       actionListener="#{linkLabelRelationController.forwarToReminder(itemR)}"/>
+                    </span>
+                                <br/>
+                                <!-- Time Range Display -->
+                                <span class="time-range" style="font-size: 12px; color: #666;">
+                        <h:outputText value="#{itemR.timeDateStart}">
+                            <f:convertDateTime pattern="MM/dd/yyyy hh:mm a"/>
+                        </h:outputText> -
+                        <h:outputText value="#{itemR.timeDateEnd}">
+                            <f:convertDateTime pattern="MM/dd/yyyy hh:mm a"/>
+                        </h:outputText>
+                    </span>
+                                <br/>
+                                <!-- Due Date -->
+                                <span class="time-left" style="font-size: 12px; color: #{itemR.dueDateColor};">
+                                    <p:poll interval="60" update="notificationPopupForm reminderSizeForm"
+                                            listener="#{notificationAndMessage.calculateDueDate(itemR)}"
+                                            oncomplete="checkClientActivity();"/>
+
+                                    #{itemR.dueDate}
+                                </span>
+
+                                <!-- Reminder Actions Section with Compact Buttons -->
+                                <div class="reminder-actions" style="margin-top: 5px;">
+                                    <h:panelGrid columns="2"
+                                                 style="width: 100%; align-items: center; column-gap: 10px;">
+                                        <!-- Complete Button -->
+                                        <p:commandButton value="Complete" styleClass="p-button-success p-mb-1"
+                                                         immediate="true"
+                                                         actionListener="#{notificationAndMessage.completeReminderActivity(itemR)}"
+                                                         update="@form, :reminderSizeForm, :growl"/>
+
+                                        <!-- Snooze Section with Reduced Padding -->
+                                        <div style="display: flex; gap: 8px;">
+                                            <p:selectOneMenu styleClass="reminder-timing" style="font-size: 12px;"
+                                                             value="#{notificationAndMessage.snoothCriteria1}"
+                                                             filter="true"
+                                                             filterMatchMode="contains">
+                                                <f:selectItem itemLabel="Snooze for..."/>
+                                                <f:selectItems
+                                                        value="#{notificationAndMessage.snoothCriteList1(itemR)}"
+                                                        var="itemCriteria" itemLabel="#{itemCriteria}"
+                                                        itemValue="#{itemCriteria}"/>
+                                                <p:ajax/>
+                                            </p:selectOneMenu>
+                                            <p:commandButton value="Snooze" styleClass="p-button-secondary p-mb-1"
+                                                             immediate="true"
+                                                             actionListener="#{notificationAndMessage.updateReminderTime(itemR)}"
+                                                             update="@form, :reminderSizeForm, :growl"/>
+                                        </div>
+                                    </h:panelGrid>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </h:form>
+                </div>
+            </div>
+
+
+            <div style="width:300px;zoom: 0.75; display:none" class="dialog-container" id="notificationDialog1">
+                <div class="dialog-header" onmousedown="startDrag(event)">
+                    Reminders <h:outputText value="(#{notificationAndMessage.notificationPopup1.size()})"/>
+                    <button class="close-button" onclick="closeDialog1()">×</button>
+                </div>
+                <div class="dialog-content" id="dialogContent1">
+                    <h:form id="notificationPopupForm1">
+
+                        <h:commandLink id="triggerNotificationUpdate"
+                                       action="#{notificationAndMessage.updatePopupWithDate}">
+                            <f:param name="dateParam" value="" id="dateParam"/>
+                        </h:commandLink>
+
+                        <c:forEach var="item" items="#{notificationAndMessage.notificationPopup1}">
+                            <div style="width:420px;" class="menu-text">
+                                <h:outputText
+                                        style="padding-left: 15px; padding-right: 15px; padding-top: 15px; font-size:16px; font-weight: bold; margin-bottom: 5px"
+                                        value="#{item.status}"/>
+                                <div class="card">
+                                    <p:commandLink value="#{item.description}"
+                                                   style="padding-left: 15px; padding-right: 15px; font-size: 14px; font-weight: bold"
+                                                   update="dialogContent1"
+                                                   action="#{linkLabelRelationController.forwarToLink(item.link.links,item.tableName,item.tableId)}"/>
+                                </div>
+                                <h:outputText
+                                        style="padding-left: 15px; padding-right: 15px; font-size:16px; font-weight: bold; float: right; margin-top: 5px"
+                                        value="#{item.dateSent}">
+                                    <f:convertDateTime pattern="MM/dd/YYYY"/>
+                                </h:outputText>
+                                <span style="padding-left: 15px; padding-right: 15px; padding-bottom: 20px">
+                                    <c:forEach var="item1"
+                                               items="#{notificationAndMessage.getNotificationActions(item.tableName)}">
+                                        <p:commandButton update="notificationForm, :badgeForm,:growl"
+                                                         value="#{item1.action}" oncomplete="closeDialog()"
+                                                         actionListener="#{notificationAndMessage.applyNotificationAction(item1,item)}"/>
+                                        <p:spacer/>
+                                    </c:forEach>
+                                    <p:spacer/>
+                                    <p:commandButton style="padding-left: 15px; padding-right: 15px"
+                                                     oncomplete="closeDialog()"
+                                                     update="notificationForm, :badgeForm,:growl" value="Dismiss"
+                                                     actionListener="#{notificationAndMessage.dismisNotification(item)}"/>
+                                </span>
+                            </div>
+
+                            <p:divider/>
+                        </c:forEach>
+                        <br/>
+                        <p:commandLink value="Show All"
+                                       style="padding-left: 15px; padding-right: 15px; padding-bottom: 25px; font-weight:bold"
+                                       actionListener="#{uRLBean.encryptedLink('/Notifications.xhtml')}"/>
+                    </h:form>
+                    <script type="text/javascript">
+                        function updateNotificationPopup(dateObject) {
+                            // Format date as a string if needed
+                            var dateStr1 = dateObject.toISOString(); // Formats to YYYY-MM-DDTHH:mm:ss.sssZ
+
+                            // Set the date parameter in the hidden commandLink
+                            document.getElementById("dateParam").value = dateStr1;
+
+                            // Trigger the AJAX call to update the backend with the date
+                            document.getElementById("triggerNotificationUpdate").click();
+                        }
+                    </script>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <ui:include src="./rightfortasksideBar.xhtml"/>
+
+    <script type="text/javascript">
+        function disableBackAndForward() {
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+        }
+    </script>
+</ui:composition>

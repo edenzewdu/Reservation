@@ -1,0 +1,110 @@
+/* Hide on desktop, show on mobile */
+.mobile-only1 {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
+@media (max-width: 740px) {
+    .mobile-only1 {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+    .mobile-address-list .address-card {
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+    }
+
+    .mobile-address-list .text-secondary {
+        color: #6c757d;
+        font-size: 0.9em;
+    }
+    /* Reset default p:dataGrid content styling if any from theme, to avoid interference */
+    .mobile-address-list-grid .ui-datagrid-content, /* Older PF */
+    .mobile-address-list-grid .p-datagrid-content { /* PF 10+ */
+        border: none;
+        background: none;
+        padding: 0;
+    }
+
+    .address-list-item-card.p-card {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0; /* Softer border */
+        border-radius: 6px; /* Nice rounded corners */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.07); /* Subtle shadow */
+        transition: box-shadow 0.2s ease-in-out;
+    }
+
+    .address-list-item-card.p-card:hover {
+        box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+    }
+
+    /* Ensure card content has proper padding */
+    .address-list-item-card .p-card-body {
+        padding: 1rem; /* Adjust padding as needed */
+    }
+    .address-list-item-card .p-card-content {
+        padding: 0; /* Reset if p-card-body has padding */
+    }
+
+
+    .card-info .font-bold {
+        color: #333; /* Darker labels for better contrast */
+    }
+
+    /* PrimeFlex FormGrid adjustments for tighter layout */
+    .card-info .p-formgrid .p-field {
+        margin-bottom: 0.5rem; /* Space between label-value rows */
+    }
+    .card-info .p-formgrid .p-col-fixed {
+        padding-right: 0.5rem; /* Space between label and value if they are close */
+    }
+
+    .card-action .p-button-text.p-button-secondary {
+        color: #555; /* Adjust icon color */
+    }
+    .card-action .p-button-text.p-button-secondary:hover {
+        background-color: rgba(0,0,0,0.04) !important; /* Subtle hover for text button */
+    }
+
+    /* Paginator styling */
+    .mobile-address-list-grid .ui-paginator,
+    .mobile-address-list-grid .p-paginator {
+        background-color: transparent;
+        border-top: 1px solid #e9ecef;
+        padding-top: 0.75rem;
+        margin-top: 0.5rem;
+    }
+    .calendar-panel.p-panel .p-panel-header {
+        border-bottom: 1px solid #dee2e6;
+        padding: 0.45rem 0.1rem;
+    }
+
+    .calendar-panel.p-panel .p-panel-content {
+        padding: 0.1rem;
+    }
+
+    .responsive-schedule {
+        width: 100% !important;
+    }
+
+    .responsive-schedule .fc-header-toolbar .fc-button {
+        padding: 0.2em 0.55em;
+        font-size: 0.7em;
+    }
+
+    @media (max-width: 767px) {
+        .responsive-schedule {
+            font-size: 11px;
+        }
+        .responsive-schedule .fc-event {
+            font-size: 0.75em;
+        }
+    }
+
+}
