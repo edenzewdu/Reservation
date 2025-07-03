@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Record Reservation System</title>
+    <h:outputScript library="js" name="idle-monitor.js" />
+</h:head>
+<h:body>
+
+<p:growl id="messages" showDetail="true" life="5000" />
+
+<h:form id="reservationForm">
+    <h2>📋 Reservation Management</h2>
+
+    <!-- Reservation Table -->
+    <p:dataTable id="reservationTable" value="#{reservationController.items}" var="resv"
+                 rowKey="#{resv.id}" selectionMode="single" selection="#{reservationController.selected}">
+
+        <p:column headerText="ID">
+            <h:outputText value="#{resv.id}" />
+        </p:column>
+
+        <p:column headerText="Table Name">
+            <h:outputText value="#{resv.reservedTable}" />
+        </p:column>
+
+        <p:column headerText="Row ID">
+            <h:outputText value="#{resv.rowId}" />
+        </p:column>
+
+        <p:column headerText="Reserved By">
+            <h:outputText value="#{resv.reservedBy}" />
+        </p:column>
+
+        <p:column headerText="Start Time">
+            <h:outputText value="#{resv.reservedStartTime}">
+                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+            </h:outputText>
+        </p:column>
+
+        <p:column headerText="Status">
+            <h:outputText value="#{resv.reservedStartTime != null ? '⛔ Reserved' : '✅ Available'}" />
+        </p:column>
+    </p:dataTable>
+
+    <br />
+
+    <!-- Actions -->
+    <p:commandButton value="🔒 Reserve Selected Record" action="#{reservationController.update}"
+                     update=":reservationForm:reservationTable :messages"
+                     disabled="#{reservationController.selected == null}" />
+
+    <p:commandButton value="🔓 Release Selected Record" action="#{reservationController.destroy}"
+                     update=":reservationForm:reservationTable :messages"
+                     disabled="#{reservationController.selected == null}" style="margin-left: 10px;" />
+
+    <p:commandButton value="➕ New Reservation" action="#{reservationController.prepareCreate}"
+                     update=":reservationDialog" oncomplete="PF('reservationDlg').show()"
+                     style="margin-left: 10px;" />
+</h:form>
+
+<!-- Dialog for Creating New Reservation -->
+<p:dialog header="Create Reservation" widgetVar="reservationDlg" modal="true" resizable="false" id="reservationDialog">
+    <h:form id="createReservationForm">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="table" value="Table Name:" />
+            <p:inputText id="table" value="#{reservationController.selected.reservedTable}" required="true" />
+
+            <h:outputLabel for="rowId" value="Row ID:" />
+            <p:inputText id="rowId" value="#{reservationController.selected.rowId}" required="true" />
+
+            <h:outputLabel for="reservedBy" value="Reserved By:" />
+            <p:inputText id="reservedBy" value="#{reservationController.selected.reservedBy}" required="true" />
+        </h:panelGrid>
+
+        <p:commandButton value="Save" action="#{reservationController.create}"
+                         update=":reservationForm:reservationTable :messages"
+                         oncomplete="PF('reservationDlg').hide()" />
+    </h:form>
+</p:dialog>
+
+<!-- Idle Timeout Modal -->
+<p:dialog id="timeoutDialog" header="Timeout Warning" widgetVar="timeoutDlg" modal="true" closable="false">
+    <h:form>
+        <p>You're about to lose your reservation due to inactivity.</p>
+        <p:commandButton value="Continue Editing" onclick="resetIdleTimer(); PF('timeoutDlg').hide(); return false;" />
+        <p:commandButton value="Release Now" action="#{reservationController.destroy}" update=":reservationForm:reservationTable :messages" />
+    </h:form>
+</p:dialog>
+
+<script>
+    let idleTime = 0;
+    const maxIdle = 10; // 10 minutes (customize per config table)
+
+    const idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+    function timerIncrement() {
+        idleTime++;
+        if (idleTime > maxIdle) {
+            PF('timeoutDlg').show();
+        }
+    }
+
+    function resetIdleTimer() {
+        idleTime = 0;
+    }
+
+    document.addEventListener('mousemove', resetIdleTimer);
+    document.addEventListener('keydown', resetIdleTimer);
+</script>
+
+</h:body>
+</html>
