@@ -11,6 +11,7 @@
     <h:outputScript>
         var idleTime = 0;
         var idleInterval;
+        var activityInterval;
 
         function resetIdleTimer() {
             idleTime = 0;
@@ -24,9 +25,19 @@
                 }
                 if (idleTime >= 10) {
                     clearInterval(idleInterval);
+                    clearInterval(activityInterval);
                     releaseReservation();
                 }
-            }, 60000); // 1 minute
+            }, 60000); // every 1 minute
+        }
+
+        function startActivityPing() {
+            activityInterval = setInterval(function () {
+                jsf.ajax.request('bookForm:activityPingBtn', null, {
+                    execute: 'bookForm',
+                    render: ''
+                });
+            }, 60000); // every 1 minute
         }
 
         function releaseReservation() {
@@ -38,6 +49,7 @@
 
         window.onload = function () {
             startIdleTimer();
+            startActivityPing();
         };
 
         document.addEventListener("mousemove", resetIdleTimer);
@@ -51,6 +63,7 @@
         <h1>📘 Book Editor</h1>
 
         <h:messages globalOnly="true" layout="table" style="color:red;" />
+
         <h:dataTable value="#{bookController.items}" var="book" border="1" cellpadding="5">
             <h:column>
                 <f:facet name="header">ID</f:facet>
@@ -73,15 +86,14 @@
                                outcome="book"/>
             </h:column>
         </h:dataTable>
-        <h:panelGroup rendered="#{not empty bookController.selected}">
 
+        <h:panelGroup rendered="#{not empty bookController.selected}">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel value="Title:" for="title"/>
                 <h:inputText id="title" value="#{bookController.selected.title}" required="true"/>
 
                 <h:outputLabel value="Author:" for="author"/>
                 <h:inputText id="author" value="#{bookController.selected.author}" required="true"/>
-
             </h:panelGrid>
 
             <br/>
@@ -100,19 +112,26 @@
                 <h:outputText value="⛔ Reserved by #{reservationController.getReservedBy('book', bookController.selected.id)}. Please wait." />
             </h:panelGroup>
 
+            <!-- Triggered by JS after 10min inactivity -->
             <h:commandButton id="reservationReleaseBtn"
                              value="Release Reservation"
                              action="#{reservationController.release('book', bookController.selected.id)}"
                              style="display:none;" />
 
+            <!-- Triggered by JS every 1min to refresh activity -->
+            <h:commandButton id="activityPingBtn"
+                             value="Ping"
+                             action="#{bookController.refreshActivity}"
+                             style="display:none;" />
+
+            <!-- Reserve on page load -->
             <f:event type="preRenderView"
                      listener="#{bookController.reserveIfNotReserved}" />
         </h:panelGroup>
 
         <h:panelGroup rendered="#{empty bookController.selected}">
-            <h:outputText value="⚠ No book selected. Please go back and select a book to edit."/>
+            <h:outputText value="⚠ No book selected. Please select a book to edit."/>
         </h:panelGroup>
-
     </h:form>
 </h:body>
 </html>

@@ -10,6 +10,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,6 +65,19 @@ public class ReservationFacade extends AbstractFacadeSavvy<Reservation> {
                 .setParameter("reservedBy", reservedBy)
                 .getResultList();
     }
+
+    public List<Reservation> findExpiredReservations(Date beforeTime) {
+        return em.createQuery("SELECT r FROM Reservation r WHERE r.reservedStartTime < :beforeTime", Reservation.class)
+                .setParameter("beforeTime", beforeTime)
+                .getResultList();
+    }
+
+    public List<Reservation> findInactiveSince(Date lastActiveBefore) {
+        return em.createQuery("SELECT r FROM Reservation r WHERE r.lastActivityTime < :time", Reservation.class)
+                .setParameter("time", lastActiveBefore)
+                .getResultList();
+    }
+
 
 
 }

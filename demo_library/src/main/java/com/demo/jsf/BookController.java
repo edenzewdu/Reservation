@@ -44,16 +44,22 @@ public class BookController implements Serializable {
         return items;
     }
 
-    public Book prepareEdit(Book book) {
+    public String prepareEdit(Book book) {
+        if (book.getReserved() != null && book.getReserved() && !reservationController.canEdit("book", book.getId())) {
+            JsfUtil.addErrorMessage("This book is already reserved by another user.");
+            return null; // stay on the same page
+        }
+
         this.selected = book;
         boolean reserved = reservationController.reserve("book", book.getId());
         if (reserved) {
-            return book;
+            return "book"; // or your edit page outcome
         } else {
             selected = null;
             return null;
         }
     }
+
 
     public void update() {
         if (selected == null) return;
@@ -83,6 +89,12 @@ public class BookController implements Serializable {
     public void reserveIfNotReserved() {
         if (selected != null && selected.getId() != null) {
             reservationController.reserve("book", selected.getId());
+        }
+    }
+
+    public void refreshActivity() {
+        if (selected != null) {
+            reservationController.refreshActivity("book", selected.getId());
         }
     }
 

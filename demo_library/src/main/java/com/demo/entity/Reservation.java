@@ -64,6 +64,10 @@ public class Reservation implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date reservedStartTime;
 
+    @Column(name = "last_activity_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastActivityTime;
+
     public Reservation() {
     }
 
@@ -125,6 +129,14 @@ public class Reservation implements Serializable {
 
     public void setReservedStartTime(Date reservedStartTime) {
         this.reservedStartTime = reservedStartTime;
+    }
+
+    public Date getLastActivityTime() {
+        return lastActivityTime;
+    }
+
+    public void setLastActivityTime(Date lastActivityTime) {
+        this.lastActivityTime = lastActivityTime;
     }
 
     @Override
