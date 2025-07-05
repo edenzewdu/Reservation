@@ -12,50 +12,56 @@
         var idleTime = 0;
         var idleInterval;
         var activityInterval;
-
+        var hasReservation = #{reservationController.canEdit('book', bookController.selected.id) == true};
+        
         function resetIdleTimer() {
-            idleTime = 0;
+        idleTime = 0;
         }
 
         function startIdleTimer() {
-            idleInterval = setInterval(function () {
-                idleTime++;
-                if (idleTime === 9) {
-                    alert("⚠ You have been inactive for 9 minutes. Your reservation will expire soon.");
-                }
-                if (idleTime >= 10) {
-                    clearInterval(idleInterval);
-                    clearInterval(activityInterval);
-                    releaseReservation();
-                }
-            }, 60000); // every 1 minute
+        idleInterval = setInterval(function () {
+        idleTime++;
+        if (hasReservation ){
+            if(idleTime === 9) {
+                alert(&quot;⚠ You have been inactive for 9 minutes. Your reservation will expire soon.&quot;);
+            }
+        }
+        if (idleTime &gt;= 10) {
+        clearInterval(idleInterval);
+        clearInterval(activityInterval);
+        releaseReservation();
+        }
+        }, 60000); // every 1 minute
         }
 
         function startActivityPing() {
-            activityInterval = setInterval(function () {
-                jsf.ajax.request('bookForm:activityPingBtn', null, {
-                    execute: 'bookForm',
-                    render: ''
-                });
-            }, 60000); // every 1 minute
+        activityInterval = setInterval(function () {
+        jsf.ajax.request(&apos;bookForm:activityPingBtn&apos;, null, {
+        execute: &apos;bookForm&apos;,
+        render: &apos;&apos;
+        });
+        }, 60000); // every 1 minute
         }
 
         function releaseReservation() {
-            jsf.ajax.request('bookForm:reservationReleaseBtn', null, {
-                execute: 'bookForm',
-                render: 'bookForm'
-            });
+        jsf.ajax.request(&apos;bookForm:reservationReleaseBtn&apos;, null, {
+        execute: &apos;bookForm&apos;,
+        render: &apos;bookForm&apos;
+        });
         }
 
         window.onload = function () {
-            startIdleTimer();
-            startActivityPing();
+        if (hasReservation) {
+        startIdleTimer();
+        startActivityPing();
+        }
         };
 
-        document.addEventListener("mousemove", resetIdleTimer);
-        document.addEventListener("keypress", resetIdleTimer);
-        document.addEventListener("scroll", resetIdleTimer);
+        document.addEventListener(&quot;mousemove&quot;, resetIdleTimer);
+        document.addEventListener(&quot;keypress&quot;, resetIdleTimer);
+        document.addEventListener(&quot;scroll&quot;, resetIdleTimer);
     </h:outputScript>
+
 </h:head>
 
 <h:body>
