@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class SystemConfiguration {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "no_activity_for_reserved")

@@ -6,50 +6,60 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <title>Book Editor</title>
+    <title>📘 Book Editor with Reservation</title>
 
     <h:outputScript>
-        var idleTime = 0;
-        var idleInterval;
-        var activityInterval;
+        let idleTime = 0;
+        let idleInterval;
+        let activityInterval;
+
+        // Values from DB via managed bean
+        var warningAt = <h:outputText value="#{configController.afterFixedDuration}" />;
+        var expireAt = <h:outputText value="#{configController.fixedDuration}" />;
+        var activityRefreshInterval = <h:outputText value="#{configController.noActivityForReserved}" />;
+        var hasReservation = <h:outputText value="#{reservationController.canEdit('book', bookController.selected.id)}" />;
 
         function resetIdleTimer() {
-            idleTime = 0;
+        idleTime = 0;
         }
 
         function startIdleTimer() {
-            idleInterval = setInterval(function () {
-                idleTime++;
-                if (idleTime === 9) {
-                    alert("⚠ You have been inactive for 9 minutes. Your reservation will expire soon.");
-                }
-                if (idleTime >= 10) {
-                    clearInterval(idleInterval);
-                    clearInterval(activityInterval);
-                    releaseReservation();
-                }
-            }, 60000); // every 1 minute
+        idleInterval = setInterval(() => {
+        idleTime++;
+        if (hasReservation) {
+        if (idleTime === warningAt) {
+        alert("⚠ Warning: You have been inactive for " + warningAt + " minutes. Your reservation will expire soon.");
+        }
+        if (idleTime >= expireAt) {
+        clearInterval(idleInterval);
+        clearInterval(activityInterval);
+        releaseReservation();
+        }
+        }
+        }, 60000); // every 1 min
         }
 
         function startActivityPing() {
-            activityInterval = setInterval(function () {
-                jsf.ajax.request('bookForm:activityPingBtn', null, {
-                    execute: 'bookForm',
-                    render: ''
-                });
-            }, 60000); // every 1 minute
+        activityInterval = setInterval(() => {
+        jsf.ajax.request('bookForm:activityPingBtn', null, {
+        execute: 'bookForm',
+        render: ''
+        });
+        }, activityRefreshInterval * 60000);
         }
 
         function releaseReservation() {
-            jsf.ajax.request('bookForm:reservationReleaseBtn', null, {
-                execute: 'bookForm',
-                render: 'bookForm'
-            });
+        jsf.ajax.request('bookForm:reservationReleaseBtn', null, {
+        execute: 'bookForm',
+        render: 'bookForm'
+        });
         }
 
         window.onload = function () {
-            startIdleTimer();
-            startActivityPing();
+        if (hasReservation) {
+        startIdleTimer();
+        startActivityPing();
+        }
         };
 
         document.addEventListener("mousemove", resetIdleTimer);
@@ -60,14 +70,22 @@
 
 <h:body>
     <h:form id="bookForm">
-        <h1>📘 Book Editor</h1>
+        <h1>📕 Book Editor with Record Reservation</h1>
+
+        <!-- System Configuration link -->
+        <h:panelGroup>
+            <h:commandLink value="⚙️ System Configuration" action="/systemConfig" />
+        </h:panelGroup>
 
         <h:messages globalOnly="true" layout="table" style="color:red;" />
 
+        <!-- Book List Table -->
         <h:dataTable value="#{bookController.items}" var="book" border="1" cellpadding="5">
             <h:column>
-                <f:facet name="header">ID</f:facet>
-                #{book.id}
+                <f:facet name="header">Status</f:facet>
+                <h:outputText value="🔒 Reserved by #{reservationController.getReservedBy('book', book.id)}"
+                              rendered="#{reservationController.isReserved('book', book.id)}"/>
+                <h:outputText value="🟢 Available" rendered="#{!reservationController.isReserved('book', book.id)}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">Title</f:facet>
@@ -87,51 +105,55 @@
             </h:column>
         </h:dataTable>
 
+        <!-- Edit Form -->
         <h:panelGroup rendered="#{not empty bookController.selected}">
+            <br/>
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel value="Title:" for="title"/>
-                <h:inputText id="title" value="#{bookController.selected.title}" required="true"/>
+                <h:inputText id="title" value="#{bookController.selected.title}" required="true"
+                             disabled="#{!reservationController.canEdit('book', bookController.selected.id)}"/>
 
                 <h:outputLabel value="Author:" for="author"/>
-                <h:inputText id="author" value="#{bookController.selected.author}" required="true"/>
+                <h:inputText id="author" value="#{bookController.selected.author}" required="true"
+                             disabled="#{!reservationController.canEdit('book', bookController.selected.id)}"/>
             </h:panelGrid>
 
             <br/>
 
+            <!-- Save Button (only if reserved by current user) -->
             <h:commandButton value="Save"
                              action="#{bookController.update}"
                              rendered="#{reservationController.canEdit('book', bookController.selected.id)}"
                              update="@form"/>
 
-            <h:commandButton value="Release Manually"
-                             action="#{reservationController.release('book', bookController.selected.id)}"
+            <!-- Manual Release -->
+            <!-- Manual Release -->
+            <h:commandButton value="🔓 Release Manually"
+                             action="#{bookController.releaseAndClear}"
                              rendered="#{reservationController.canEdit('book', bookController.selected.id)}"
                              update="@form"/>
 
+            <!-- Show reservation info if locked by others -->
             <h:panelGroup rendered="#{!reservationController.canEdit('book', bookController.selected.id)}">
-                <h:outputText value="⛔ Reserved by #{reservationController.getReservedBy('book', bookController.selected.id)}. Please wait." />
+                <h:outputText value="⛔ This record is reserved by #{reservationController.getReservedBy('book', bookController.selected.id)}. Please wait." />
             </h:panelGroup>
 
-            <!-- Triggered by JS after 10min inactivity -->
+            <!-- Auto trigger by JS for releasing after inactivity -->
             <h:commandButton id="reservationReleaseBtn"
-                             value="Release Reservation"
                              action="#{reservationController.release('book', bookController.selected.id)}"
                              style="display:none;" />
 
-            <!-- Triggered by JS every 1min to refresh activity -->
+            <!-- Auto trigger by JS to refresh activity -->
             <h:commandButton id="activityPingBtn"
-                             value="Ping"
                              action="#{bookController.refreshActivity}"
                              style="display:none;" />
-
-            <!-- Reserve on page load -->
-            <f:event type="preRenderView"
-                     listener="#{bookController.reserveIfNotReserved}" />
         </h:panelGroup>
 
+        <!-- No selection warning -->
         <h:panelGroup rendered="#{empty bookController.selected}">
-            <h:outputText value="⚠ No book selected. Please select a book to edit."/>
+            <h:outputText value="📌 Select a book to edit from the list above."/>
         </h:panelGroup>
+
     </h:form>
 </h:body>
 </html>

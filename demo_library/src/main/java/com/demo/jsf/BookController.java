@@ -45,7 +45,12 @@ public class BookController implements Serializable {
     }
 
     public String prepareEdit(Book book) {
-        if (book.getReserved() != null && book.getReserved() && !reservationController.canEdit("book", book.getId())) {
+
+        if (book == null || book.getId() == null) {
+            JsfUtil.addErrorMessage("Invalid book selected (no ID).");
+            return null;
+        }
+        if (!reservationController.canEdit("book", book.getId())) {
             JsfUtil.addErrorMessage("This book is already reserved by another user.");
             return null; // stay on the same page
         }
@@ -73,6 +78,7 @@ public class BookController implements Serializable {
             bookFacade.edit(selected);
             JsfUtil.addSuccessMessage("Book updated successfully.");
             reservationController.release("book", selected.getId());
+            selected = null;
             items = null;
         } catch (Exception e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
@@ -98,6 +104,13 @@ public class BookController implements Serializable {
         }
     }
 
+    public void releaseAndClear() {
+        if (selected != null) {
+            reservationController.release("book", selected.getId());
+            selected = null;
+            items = null;
+        }
+    }
 
     public boolean isReserved(Book book) {
         return reservationController.isReserved("book", book.getId());

@@ -14,8 +14,6 @@ public class Book implements Serializable {
     private String title;
     private String author;
 
-    @Column(name = "reserved")
-    private Boolean reserved = false;
 
     // Constructors, Getters, Setters
     public Book() {}
@@ -25,7 +23,9 @@ public class Book implements Serializable {
         this.author = author;
     }
 
-    public Integer getId() { return id; }
+    public Integer getId() {
+        return id;
+    }
     public void setId(Integer id) { this.id = id; }
 
     public String getTitle() { return title; }
@@ -34,11 +34,4 @@ public class Book implements Serializable {
     public String getAuthor() { return author; }
     public void setAuthor(String author) { this.author = author; }
 
-    public Boolean getReserved() {
-        return reserved;
-    }
-
-    public void setReserved(Boolean reserved) {
-        this.reserved = reserved;
-    }
 }

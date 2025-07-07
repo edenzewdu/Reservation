@@ -10,7 +10,182 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c988006-f7ed-40a8-bbb0-b32d3e0bb116" name="Changes" comment="Merge remote-tracking branch 'origin/main' into main">
+      <change afterPath="$PROJECT_DIR$/demo/src/main/webapp/systemConfig.xhtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/SystemConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ConfigController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/SystemConfigurationFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/webapp/book.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/webapp/book.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/target/demo/WEB-INF/lib/demo_library-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/demo/target/demo/WEB-INF/lib/demo_library-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/target/demo/book.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/demo/target/demo/book.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/target/endorsed/jakarta.jakartaee-api-10.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/ContractItemTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/ContractKeyDatesMilestonesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/ContractPartiesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/ContractPartyRolesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/ContractStatusesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/ContractTypesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/ContractsTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/IssuesDefectsTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/MilestoneStatusesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/PartyRoleTypesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/PartyTypesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/PaymentFrequenciesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/Penalties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/RebatesDiscountsTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/RetentionsTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/entity/WarrantiesTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ContractItemTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ContractKeyDatesMilestonesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ContractPartiesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ContractPartyRolesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ContractStatusesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ContractTypesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ContractsTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/IssuesDefectsTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/MilestoneStatusesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/PartyRoleTypesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/PartyTypesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/PaymentFrequenciesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/PenaltiesController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/RebatesDiscountsTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/ReservationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/RetentionsTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/WarrantiesTableController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/ContractItemTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/ContractKeyDatesMilestonesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/ContractPartiesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/ContractPartyRolesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/ContractStatusesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/ContractTypesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/ContractsTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/IssuesDefectsTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/MilestoneStatusesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/PartyRoleTypesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/PartyTypesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/PaymentFrequenciesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/PenaltiesFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/RebatesDiscountsTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/RetentionsTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/WarrantiesTableFacade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/Book.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/ContractItemTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/ContractKeyDatesMilestonesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/ContractPartiesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/ContractPartyRolesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/ContractStatusesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/ContractTypesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/ContractsTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/IssuesDefectsTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/MilestoneStatusesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/PartyRoleTypesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/PartyTypesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/PaymentFrequenciesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/Penalties.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/RebatesDiscountsTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/Reservation.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/Reservation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/RetentionsTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/entity/WarrantiesTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/BookController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractItemTableController$ContractItemTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractItemTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractKeyDatesMilestonesTableController$ContractKeyDatesMilestonesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractKeyDatesMilestonesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractPartiesTableController$ContractPartiesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractPartiesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractPartyRolesTableController$ContractPartyRolesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractPartyRolesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractStatusesTableController$ContractStatusesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractStatusesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractTypesTableController$ContractTypesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractTypesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractsTableController$ContractsTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ContractsTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/IssuesDefectsTableController$IssuesDefectsTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/IssuesDefectsTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/MilestoneStatusesTableController$MilestoneStatusesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/MilestoneStatusesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/PartyRoleTypesTableController$PartyRoleTypesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/PartyRoleTypesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/PartyTypesTableController$PartyTypesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/PartyTypesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/PaymentFrequenciesTableController$PaymentFrequenciesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/PaymentFrequenciesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/PenaltiesController$PenaltiesControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/PenaltiesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/RebatesDiscountsTableController$RebatesDiscountsTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/RebatesDiscountsTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ReservationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/ReservationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/RetentionsTableController$RetentionsTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/RetentionsTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/WarrantiesTableController$WarrantiesTableControllerConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/WarrantiesTableController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver$JsfCrudClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver$JsfCrudClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver$JsfCrudMethod.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver$JsfCrudMethod.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver$JsfCrudParameterizedMethod.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver$JsfCrudParameterizedMethod.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver$JsfCrudTransform.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver$JsfCrudTransform.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfCrudELResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfUtil$PersistAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfUtil$PersistAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/JsfUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/PaginationHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/PaginationHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/PagingInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/PagingInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/URLUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/jsf/util/URLUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/security/URLBean.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/security/URLBean.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/AbstractFacadeQuerySavvy.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/AbstractFacadeQuerySavvy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/AbstractFacadeSavvy.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/AbstractFacadeSavvy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/BookFacade.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/BookFacade.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/ContractItemTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/ContractKeyDatesMilestonesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/ContractPartiesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/ContractPartyRolesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/ContractStatusesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/ContractTypesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/ContractsTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/IssuesDefectsTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/MilestoneStatusesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/PartyRoleTypesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/PartyTypesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/PaymentFrequenciesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/PenaltiesFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/RebatesDiscountsTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/ReservationFacade.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/ReservationFacade.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/RetentionsTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/com/demo/session/WarrantiesTableFacade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/net/balusc/util/FacesUtil$FacesContextWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/net/balusc/util/FacesUtil$FacesContextWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/net/balusc/util/FacesUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/net/balusc/util/FacesUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/component/MirageMenu$PropertyKeys.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/component/MirageMenu$PropertyKeys.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/component/MirageMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/component/MirageMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/component/MirageMenuRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/component/MirageMenuRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Country.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Country.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Customer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/CustomerStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/CustomerStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Document.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Document.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/InventoryStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/InventoryStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/OrderStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/OrderStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Representative.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/domain/Representative.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/filter/CharacterEncodingFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/filter/CharacterEncodingFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/filter/CharacterEncodingFilter1.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/filter/CharacterEncodingFilter1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/service/CustomerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/service/CustomerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/service/DocumentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/service/DocumentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/service/OrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/CalendarDemoView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/CalendarDemoView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/ChartDemoView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/ChartDemoView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/ChronolineView$Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/ChronolineView$Event.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/ChronolineView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/ChronolineView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/FileDemoView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/FileDemoView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/FormDemoView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/FormDemoView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/GridDemoView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/GridDemoView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/GuestPreferences$ComponentTheme.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/GuestPreferences$ComponentTheme.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/GuestPreferences$MenuTheme.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/GuestPreferences$MenuTheme.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/GuestPreferences.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/GuestPreferences.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/MessageDemoView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/MessageDemoView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/OverlayDemoView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/OverlayDemoView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/PrimeIconsView$Icon.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/PrimeIconsView$Icon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/PrimeIconsView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/PrimeIconsView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/TreeDemoView.class" beforeDir="false" afterPath="$PROJECT_DIR$/demo_library/target/classes/org/primefaces/mirage/view/TreeDemoView.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +254,9 @@
         <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -202,6 +380,7 @@
       <workItem from="1751448430244" duration="8684000" />
       <workItem from="1751525842543" duration="15382000" />
       <workItem from="1751696471132" duration="2274000" />
+      <workItem from="1751870785645" duration="26705000" />
     </task>
     <task id="LOCAL-00001" summary="Create test">
       <option name="closed" value="true" />
@@ -272,5 +451,26 @@
     <MESSAGE value="Create test" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main' into main" />
     <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/main' into main" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/demo_library/src/main/java/com/demo/session/ReservationFacade.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/BookController.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/demo_library/src/main/java/com/demo/jsf/BookController.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
